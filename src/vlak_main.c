@@ -8,6 +8,7 @@
 static uint32_t animation_counter = 0;
 
 static bool vlak_moving = false;
+static joypad_8way_t vlak_direction_queued = JOYPAD_8WAY_RIGHT;
 static joypad_8way_t vlak_direction = JOYPAD_8WAY_RIGHT;
 static int vlak_pos = -1;
 
@@ -55,7 +56,7 @@ void vlak_process_input()
         case JOYPAD_8WAY_RIGHT:
         case JOYPAD_8WAY_DOWN:
         case JOYPAD_8WAY_LEFT:
-            vlak_direction = direction;
+            vlak_direction_queued = direction;
             break;
         
         default:
@@ -67,6 +68,7 @@ void vlak_move()
 {
     int vlak_pos = vlak_level_get_vlak_pos(&current_level);
     int next_pos;
+    vlak_direction = vlak_direction_queued;
 
     switch (vlak_direction)
     {
