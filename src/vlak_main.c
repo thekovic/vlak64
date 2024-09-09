@@ -29,6 +29,11 @@ int main()
 
         vlak_process_input();
 
+        if (g.title_screen_playing && (g.anim_counter % 5 == 0))
+        {
+            vlak_title_screen_tick();
+        }
+
         if (g.train_moving && (g.anim_counter % 5 == 0))
         {
             vlak_collision_check();

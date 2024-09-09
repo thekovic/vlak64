@@ -24,7 +24,6 @@ int vlak_level_xy_to_pos(int x, int y)
 static vlak_level_t LEVEL_0_DEMO = {
     .name = "DEMO",
     .content = {
-  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
 KRY,  0,  0,  0,KRY,STO,  0,  0,  0,  0,  0,  0,KOR,  0,  0,JAB,  0,  0,  0,JAB,
 KRY,  0,  0,  0,KRY,STO,  0,  0,  0,  0,  0,KOR,  0,KOR,  0,JAB,  0,  0,JAB,  0,
 KRY,  0,  0,  0,KRY,STO,  0,  0,  0,  0,KOR,  0,  0,  0,KOR,JAB,  0,JAB,  0,  0,
@@ -34,6 +33,7 @@ KRY,  0,  0,  0,KRY,STO,  0,  0,  0,  0,KOR,KOR,KOR,KOR,KOR,JAB,  0,JAB,  0,  0,
   0,  0,KRY,  0,  0,STO,STO,STO,STO,STO,KOR,  0,  0,  0,KOR,JAB,  0,  0,  0,JAB,
   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
 LOK,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,VRA,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};

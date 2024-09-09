@@ -25,8 +25,11 @@ typedef struct vlak_game_s
 {
     uint32_t anim_counter;
 
+    bool title_screen_playing;
+    bool title_screen_leaving;
+    uint32_t title_screen_timer;
+
     vlak_anim_state_t level_transit_anim;
-    uint32_t level_transit_time;
 
     bool train_moving;
     joypad_8way_t train_direction_queued;
@@ -56,6 +59,8 @@ void vlak_game_init();
 void vlak_load_level();
 
 void vlak_process_input();
+
+void vlak_title_screen_tick();
 
 void vlak_move(int train_pos, int next_pos, vlak_element_t append_type);
 
