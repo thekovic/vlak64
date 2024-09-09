@@ -35,6 +35,11 @@ static bool should_load_level = true;
 static int current_level_id = 1;
 static vlak_level_t current_level;
 
+static int items_to_collect = 0;
+static int items_collected = 0;
+
+static int game_score = 0;
+
 void vlak_load_level()
 {
     memcpy(&current_level, vlak_level_array[current_level_id], sizeof(vlak_level_t));
@@ -43,6 +48,18 @@ void vlak_load_level()
     vlak_direction = JOYPAD_8WAY_RIGHT;
     vlak_explosion_anim = ANIM_NOT_STARTED;
     vrata_opening_anim = ANIM_NOT_STARTED;
+    items_to_collect = 0;
+    items_collected = 0;
+
+    for (int tile = 0; tile < LEVEL_LEN; tile++)
+    {
+        vlak_element_t tile_id = current_level.content[tile];
+        if (tile_id > 0 && tile_id <= LET)
+        {
+            items_to_collect++;
+        }
+    }
+
     should_load_level = false;
 }
 
@@ -124,10 +141,9 @@ void vlak_process_input()
 void vlak_move()
 {
     int vlak_pos = vlak_level_get_element_pos(&current_level, LOK);
-    int next_pos;
-    vlak_direction = vlak_direction_queued;
-
-    switch (vlak_direction)
+    int next_pos = -1;
+    
+    switch (vlak_direction_queued)
     {
         case JOYPAD_8WAY_UP:
             next_pos = vlak_pos - LEVEL_WIDTH;
@@ -151,18 +167,46 @@ void vlak_move()
 
     vlak_element_t tile_id = current_level.content[next_pos];
 
-    if (tile_id == ZED)
+    // collide with solid and explode
+    if ((tile_id == VRA && vrata_opening_anim == ANIM_NOT_STARTED) || tile_id >= ZED)
     {
         current_level.content[vlak_pos] = LOK_BOOM;
         vlak_explosion_anim = ANIM_GOING;
         vlak_explosion_time = animation_counter;
         vlak_moving = false;
     }
-    else 
+    else if ((tile_id == VRA && vrata_opening_anim != ANIM_NOT_STARTED))
     {
+        current_level_id++;
+        should_load_level = true;
+
+        // TODO: Move wagons
         current_level.content[vlak_pos] = 0;
         current_level.content[next_pos] = LOK;
     }
+    // collect item
+    else if (tile_id > 0 && tile_id <= LET)
+    {
+        game_score++;
+        items_collected++;
+        if (items_collected >= items_to_collect)
+        {
+            vrata_opening_anim = ANIM_GOING;
+            vrata_opening_time = animation_counter;
+        }
+
+        // TODO: Spawn wagons
+        current_level.content[vlak_pos] = 0;
+        current_level.content[next_pos] = LOK;
+    }
+    else 
+    {
+        // TODO: Move wagons
+        current_level.content[vlak_pos] = 0;
+        current_level.content[next_pos] = LOK;
+    }
+
+    vlak_direction = vlak_direction_queued;
 }
 
 void vlak_render_level(vlak_level_t* level)
@@ -281,7 +325,7 @@ int main()
 
     while (1)
     {
-        if (should_load_level)
+        if (should_load_level && (animation_counter % 5 == 0))
         {
             vlak_load_level();
         }
@@ -299,7 +343,12 @@ int main()
 
         vlak_render_level(&current_level);
 
-        rdpq_text_printf(&(rdpq_textparms_t) {.style_id = 1}, FONT_BUILTIN_DEBUG_MONO, 13.5 * TILE_SIZE, 13.75 * TILE_SIZE, "LEVEL ^02%i^01: ^02%s", current_level_id, current_level.name);
+        rdpq_text_printf(&(rdpq_textparms_t) {.style_id = 1}, FONT_BUILTIN_DEBUG_MONO, 1.5 * TILE_SIZE, 13.75 * TILE_SIZE,
+            "SCORE: ^02%i0", game_score);
+        rdpq_text_printf(&(rdpq_textparms_t) {.style_id = 3}, FONT_BUILTIN_DEBUG_MONO, 6.5 * TILE_SIZE, 13.75 * TILE_SIZE,
+            "GET: %i HAVE: %i", items_to_collect, items_collected);
+        rdpq_text_printf(&(rdpq_textparms_t) {.style_id = 1}, FONT_BUILTIN_DEBUG_MONO, 13.5 * TILE_SIZE, 13.75 * TILE_SIZE,
+            "LEVEL ^02%i^01: ^02%s", current_level_id, current_level.name);
 
         rdpq_detach_show();
 
