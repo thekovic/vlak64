@@ -31,7 +31,21 @@ typedef enum
     VAG_KRY,
     VAG_KOR,
     VAG_STO,
-    // TODO: MORE WAGONS
+    VAG_JAB,
+    VAG_KRA,
+    VAG_TRE,
+    VAG_RYB,
+    VAG_ZIR,
+    VAG_ZMR,
+    VAG_DOR,
+    VAG_POC,
+    VAG_AUT,
+    VAG_BAL,
+    VAG_BUD,
+    VAG_SLO,
+    VAG_VIN,
+    VAG_PEN,
+    VAG_LET,
     NUM_LEVEL_ELEMENTS
 } vlak_element_t;
 
