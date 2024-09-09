@@ -33,6 +33,8 @@ void vlak_text_init()
 
 void vlak_render_border()
 {
+    rdpq_set_mode_standard();
+
     sprite_t* zed_sprite = vlak_sprite_array[ZED]->anim_frames[vlak_sprite_array[ZED]->nframes - 1];
 
     // upload sprite manually so we can use texture_rect
@@ -49,6 +51,8 @@ void vlak_render_border()
 
 void vlak_render_level(vlak_level_t* level)
 {
+    rdpq_set_mode_standard();
+
     for (int tile = 0; tile < LEVEL_LEN; tile++)
     {
         int tile_x = (vlak_level_pos_to_x(tile)) * TILE_SIZE;
@@ -163,6 +167,8 @@ void vlak_render_level(vlak_level_t* level)
 
 void vlak_render_text()
 {
+    rdpq_set_mode_standard();
+
     if (g.train_explosion_anim == ANIM_FINISHED)
     {
         rdpq_text_printf(&(rdpq_textparms_t) {.style_id = 1}, FONT_BUILTIN_DEBUG_MONO, 4.75 * TILE_SIZE, 13.75 * TILE_SIZE,
