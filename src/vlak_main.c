@@ -19,6 +19,15 @@ typedef enum
     ANIM_FINISHED
 } vlak_animation_state_t;
 
+typedef struct vlak_vagon_s
+{
+    int pos;
+    joypad_8way_t direction;
+    vlak_element_t type;
+} vlak_vagon_t;
+
+static vlak_vagon_t vagon_array[LEVEL_PLAYABLE_SPACE_LEN] = {0};
+
 static uint32_t animation_counter = 0;
 
 static bool vlak_moving = false;
@@ -50,6 +59,7 @@ void vlak_load_level()
     vrata_opening_anim = ANIM_NOT_STARTED;
     items_to_collect = 0;
     items_collected = 0;
+    memset(vagon_array, 0, sizeof(vlak_vagon_t) * LEVEL_PLAYABLE_SPACE_LEN);
 
     for (int tile = 0; tile < LEVEL_LEN; tile++)
     {
@@ -142,7 +152,43 @@ void vlak_process_input()
     }
 }
 
-void vlak_move()
+void vlak_move(int next_pos, int vlak_pos, vlak_element_t append_type)
+{
+    // only train
+    if (items_collected == 0)
+    {
+        current_level.content[vlak_pos] = append_type;
+        current_level.content[next_pos] = LOK;
+        return;
+    }
+
+    // store position of last wagon
+    int last_pos = vagon_array[items_collected - 1].pos;
+
+    // move wagons 2 to N to position 1 to (N-1) 
+    for (int i = items_collected - 1; i > 0; i--)
+    {
+        vagon_array[i].pos = vagon_array[i - 1].pos;
+        vagon_array[i].direction = vagon_array[i - 1].direction;
+        assertf(vagon_array[i].pos != 0, "During move vagons x to 1, pos found to be 0");
+        current_level.content[vagon_array[i].pos] = vagon_array[i].type;
+    }
+
+    // move 1st wagon to train pos
+    vagon_array[0].pos = vlak_pos;
+    vagon_array[0].direction = vlak_direction;
+    assertf(vagon_array[0].pos != 0, "During move first vagon, pos found to be 0");
+    current_level.content[vagon_array[0].pos] = vagon_array[0].type;
+
+    // move train
+    current_level.content[next_pos] = LOK;
+
+    // append new wagon to the end (if collecting) or make the place empty
+    assertf(last_pos, "During move vagons, last_pos found to be 0");
+    current_level.content[last_pos] = append_type;
+}
+
+void vlak_collision_check()
 {
     int vlak_pos = vlak_level_get_element_pos(&current_level, LOK);
     int next_pos = -1;
@@ -181,18 +227,37 @@ void vlak_move()
         // score penalty upon explosion
         game_score -= (items_to_collect / 4);
     }
+    // enter door and exit level
     else if ((tile_id == VRA && vrata_opening_anim != ANIM_NOT_STARTED))
     {
         current_level_id++;
         should_load_level = true;
 
-        // TODO: Move wagons
-        current_level.content[vlak_pos] = 0;
-        current_level.content[next_pos] = LOK;
+        vlak_move(next_pos, vlak_pos, NIC);
     }
     // collect item
-    else if (tile_id > 0 && tile_id <= LET)
+    else if (tile_id > NIC && tile_id <= LET)
     {
+        vlak_element_t vagon_type = tile_id + LOK;
+        if (items_collected == 0)
+        {
+            vagon_array[items_collected] = (vlak_vagon_t) {
+                .pos = vlak_pos, 
+                .direction = vlak_direction,
+                .type = vagon_type
+            };
+        }
+        else
+        {
+            vagon_array[items_collected] = (vlak_vagon_t) {
+                .pos = vagon_array[items_collected - 1].pos,
+                .direction = vagon_array[items_collected - 1].direction,
+                .type = vagon_type
+            };
+        }
+
+        vlak_move(next_pos, vlak_pos, vagon_type);
+
         game_score++;
         items_collected++;
         if (items_collected >= items_to_collect)
@@ -200,16 +265,11 @@ void vlak_move()
             vrata_opening_anim = ANIM_GOING;
             vrata_opening_time = animation_counter;
         }
-
-        // TODO: Spawn wagons
-        current_level.content[vlak_pos] = 0;
-        current_level.content[next_pos] = LOK;
     }
+    // move to empty tile
     else 
     {
-        // TODO: Move wagons
-        current_level.content[vlak_pos] = 0;
-        current_level.content[next_pos] = LOK;
+        vlak_move(next_pos, vlak_pos, NIC);
     }
 
     vlak_direction = vlak_direction_queued;
@@ -233,6 +293,7 @@ void vlak_render_level(vlak_level_t* level)
         int anim_frame = 0;
         switch (tile_id)
         {
+            // special handling for elements with single-use animation
             case VRA:
                 switch (vrata_opening_anim)
                 {
@@ -270,6 +331,7 @@ void vlak_render_level(vlak_level_t* level)
                         break;
                 }
                 break;
+            // everything else
             default:
                 anim_frame = (vlak_sprite->nframes == 1) ? 0 : animation_counter % vlak_sprite->nframes;
                 break;
@@ -278,9 +340,30 @@ void vlak_render_level(vlak_level_t* level)
         sprite_t* sprite = vlak_sprite->anim_frames[anim_frame];
 
         rdpq_blitparms_t blitparms = {0};
-        if (tile_id == LOK)
+        // train and wagons are transformed based on direction
+        if (tile_id >= LOK)
         {
-            switch (vlak_direction)
+            joypad_8way_t direction = -1;
+            if (tile_id == LOK)
+            {
+                direction = vlak_direction;
+            }
+            else
+            {
+                // FIXME: this way of getting direction is O(n^2), surely there's a better way
+                // (maybe embedding info about direction directly into the level map tiles)
+                for (int i = items_collected; i >= 0; i--)
+                {
+                    vlak_vagon_t vagon = vagon_array[i];
+                    if (vagon.pos == tile)
+                    {
+                        direction = vagon.direction;
+                        break;
+                    }
+                }
+            }
+
+            switch (direction)
             {
                 case JOYPAD_8WAY_UP:
                     tile_x = tile_x + (sprite->width / 2);
@@ -340,7 +423,7 @@ int main()
 
         if (vlak_moving && (animation_counter % 5 == 0))
         {
-            vlak_move();
+            vlak_collision_check();
         }
 
         rdpq_attach_clear(display_get(), NULL);

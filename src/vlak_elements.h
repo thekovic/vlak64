@@ -3,6 +3,7 @@
 
 typedef enum
 {
+    NIC = 0,    // NIC (EMPTY TILE)
     KRY = 1,    // KRYSTAL (CRYSTAL)
     KOR = 2,    // KORUNA (CROWN)
     STO = 3,    // STROM (TREE)
