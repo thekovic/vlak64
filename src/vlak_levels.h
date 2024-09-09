@@ -5,6 +5,8 @@
 
 #include "vlak_elements.h"
 
+#define LEVEL_NAME_LEN (6)
+
 #define LEVEL_WIDTH (20)
 #define LEVEL_HEIGHT (12)
 #define LEVEL_LEN (LEVEL_WIDTH * LEVEL_HEIGHT)
@@ -12,6 +14,7 @@
 
 typedef struct level_s
 {
+    char name[LEVEL_NAME_LEN];
     uint8_t content[LEVEL_LEN];
 } vlak_level_t;
 

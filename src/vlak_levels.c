@@ -21,8 +21,9 @@ int vlak_level_xy_to_pos(int x, int y)
     return LEVEL_WIDTH * y + x;
 }
 
-static vlak_level_t LEVEL_0_DEMO = {.content =
-{
+static vlak_level_t LEVEL_0_DEMO = {
+    .name = "DEMO",
+    .content = {
   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
 KRY,  0,  0,  0,KRY,STO,  0,  0,  0,  0,  0,  0,KOR,  0,  0,JAB,  0,  0,  0,JAB,
 KRY,  0,  0,  0,KRY,STO,  0,  0,  0,  0,  0,KOR,  0,KOR,  0,JAB,  0,  0,JAB,  0,
@@ -37,8 +38,9 @@ LOK,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,VRA,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_1_GOLEM = {.content =
-{
+static vlak_level_t LEVEL_1_GOLEM = {
+    .name = "GOLEM",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,ZED,
 ZED,  0,  0,  0,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,  0,  0,  0,ZED,
@@ -53,8 +55,9 @@ ZED,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_2_KRONE = {.content =
-{
+static vlak_level_t LEVEL_2_KRONE = {
+    .name = "KRONE",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,ZED,
 ZED,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,ZED,
@@ -69,8 +72,9 @@ ZED,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,VRA,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_3_MYDLO = {.content =
-{
+static vlak_level_t LEVEL_3_MYDLO = {
+    .name = "MYDLO",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,ZED,
 ZED,  0,  0,KRY,  0,  0,  0,  0,  0,ZED,  0,  0,  0,  0,  0,  0,  0,  0,  0,ZED,
@@ -85,8 +89,9 @@ ZED,  0,  0,  0,  0,  0,  0,  0,  0,ZED,  0,  0,  0,  0,  0,  0,  0,  0,  0,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_4_LEDEN = {.content =
-{
+static vlak_level_t LEVEL_4_LEDEN = {
+    .name = "LEDEN",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,VRA,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,  0,KRY,  0,KRY,  0,KRY,  0,KRY,  0,KRY,  0,KRY,  0,KRY,  0,KRY,  0,  0,ZED,
 ZED,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,ZED,
@@ -101,8 +106,9 @@ ZED,  0,  0,ZED,JAB,JAB,STO,JAB,JAB,JAB,JAB,JAB,STO,JAB,JAB,ZED,  0,  0,  0,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_5_STROP = {.content =
-{
+static vlak_level_t LEVEL_5_STROP = {
+    .name = "STROP",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,ZED,
 ZED,  0,STO,STO,STO,STO,STO,STO,STO,STO,STO,STO,STO,STO,STO,STO,STO,STO,  0,ZED,
@@ -117,8 +123,9 @@ ZED,  0,  0,  0,  0,  0,  0,  0,  0,KOR,  0,  0,  0,  0,  0,  0,  0,  0,  0,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_6_LILIE = {.content =
-{
+static vlak_level_t LEVEL_6_LILIE = {
+    .name = "LILIE",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,KOR,  0,  0,  0,  0,  0,ZED,
 ZED,  0,  0,  0,  0,  0,  0,  0,TRE,TRE,TRE,  0,  0,ZED,  0,KRY,  0,  0,  0,ZED,
@@ -133,8 +140,9 @@ VRA,  0,  0,STO,STO,STO,STO,STO,STO,STO,STO,STO,  0,  0,  0,  0,  0,  0,  0,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_7_RYBKA = {.content =
-{
+static vlak_level_t LEVEL_7_RYBKA = {
+    .name = "RYBKA",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,VRA,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,ZED,
 ZED,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,ZED,
@@ -149,8 +157,9 @@ ZED,  0,  0,  0,  0,  0,  0,  0,  0,ZED,  0,  0,  0,  0,  0,  0,  0,  0,  0,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_8_KLAUN = {.content =
-{
+static vlak_level_t LEVEL_8_KLAUN = {
+    .name = "KLAUN",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,ZED,
 ZED,  0,  0,KRY,  0,ZED,ZED,ZED,ZED,  0,ZED,ZED,ZED,ZED,  0,KRY,  0,  0,  0,ZED,
@@ -165,8 +174,9 @@ ZED,  0,  0,  0,  0,  0,  0,  0,  0,VRA,  0,  0,  0,  0,  0,  0,  0,  0,  0,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_9_BRAUN = {.content =
-{
+static vlak_level_t LEVEL_9_BRAUN = {
+    .name = "BRAUN",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,JAB,JAB,JAB,JAB,JAB,JAB,JAB,JAB,JAB,JAB,JAB,JAB,JAB,JAB,JAB,JAB,JAB,JAB,ZED,
 ZED,  0,  0,  0,  0,  0,  0,  0,  0,STO,STO,  0,  0,  0,  0,  0,  0,  0,  0,ZED,
@@ -181,8 +191,9 @@ ZED,  0,  0,  0,  0,  0,  0,  0,  0,LOK,  0,  0,  0,  0,  0,  0,  0,  0,  0,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,VRA,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_10_WHITE = {.content =
-{
+static vlak_level_t LEVEL_10_WHITE = {
+    .name = "WHITE",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,  0,  0,STO,  0,  0,  0,ZMR,  0,ZMR,  0,ZMR,  0,  0,  0,STO,  0,  0,  0,ZED,
 ZED,  0,  0,STO,  0,  0,  0,  0,ZMR,  0,ZMR,  0,  0,  0,  0,STO,  0,  0,  0,ZED,
@@ -197,8 +208,9 @@ ZED,  0,  0,STO,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,STO,  0,  0,  0,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_11_MOUSE = {.content =
-{
+static vlak_level_t LEVEL_11_MOUSE = {
+    .name = "MOUSE",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,  0,  0,  0,  0,  0,  0,RYB,  0,ZED,ZED,  0,RYB,  0,  0,  0,  0,  0,  0,ZED,
 ZED,  0,  0,  0,  0,  0,  0,ZED,  0,POC,POC,  0,ZED,  0,  0,  0,  0,  0,  0,ZED,
@@ -213,8 +225,9 @@ ZED,  0,  0,  0,  0,  0,  0,ZED,  0,  0,  0,  0,ZED,  0,  0,  0,  0,  0,  0,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_12_DREAM = {.content =
-{
+static vlak_level_t LEVEL_12_DREAM = {
+    .name = "DREAM",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,VRA,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,ZED,
 ZED,  0,KRA,KRA,KRA,KRA,KRA,KRA,KRA,KRA,KRA,KRA,KRA,KRA,KRA,KRA,KRA,KRA,  0,ZED,
@@ -229,8 +242,9 @@ ZED,  0,  0,  0,ZED,AUT,AUT,AUT,AUT,  0,AUT,AUT,AUT,AUT,AUT,ZED,  0,  0,  0,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_13_IDEAL = {.content =
-{
+static vlak_level_t LEVEL_13_IDEAL = {
+    .name = "IDEAL",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,ZED,ZMR,ZMR,ZED,ZED,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,JAB,JAB,ZED,
 ZED,ZED,ZMR,ZMR,ZMR,ZED,  0,  0,  0,BAL,  0,  0,  0,  0,  0,  0,  0,JAB,JAB,ZED,
@@ -245,8 +259,9 @@ ZED,  0,KRA,ZED,ZED,  0,  0,  0,KRY,  0,  0,  0,AUT,AUT,AUT,  0,  0,JAB,JAB,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,VRA,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_14_ILUZE = {.content =
-{
+static vlak_level_t LEVEL_14_ILUZE = {
+    .name = "ILUZE",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,BUD,BUD,BUD,  0,BUD,  0,BUD,  0,  0,BUD,  0,  0,  0,  0,  0,  0,  0,  0,ZED,
 ZED,  0,BUD,  0,  0,BUD,  0,BUD,  0,BUD,  0,  0,  0,  0,  0,  0,  0,  0,  0,ZED,
@@ -261,8 +276,9 @@ ZED,  0,  0,  0,  0,  0,  0,  0,  0,BUD,  0,  0,BUD,  0,BUD,  0,BUD,  0,BUD,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_15_SAINT = {.content =
-{
+static vlak_level_t LEVEL_15_SAINT = {
+    .name = "SAINT",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,  0,  0,  0,  0,  0,  0,  0,  0,KRY,  0,  0,  0,  0,  0,  0,  0,  0,  0,ZED,
 ZED,  0,  0,  0,ZED,ZED,ZED,ZED,ZED,KOR,ZED,ZED,ZED,ZED,ZED,ZED,  0,  0,  0,ZED,
@@ -277,8 +293,9 @@ ZED,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_16_BELLS = {.content =
-{
+static vlak_level_t LEVEL_16_BELLS = {
+    .name = "BELLS",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,ZED,
 ZED,  0,  0,  0,  0,ZED,VIN,VIN,VIN,VIN,VIN,VIN,VIN,VIN,VIN,ZED,  0,  0,  0,ZED,
@@ -293,8 +310,9 @@ ZED,  0,  0,  0,  0,  0,  0,  0,KOR,KOR,KOR,KOR,KOR,  0,  0,  0,  0,  0,  0,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_17_TROJA = {.content =
-{
+static vlak_level_t LEVEL_17_TROJA = {
+    .name = "TROJA",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,KRY,KOR,KRY,KOR,AUT,AUT,AUT,AUT,AUT,  0,  0,  0,  0,  0,  0,  0,  0,  0,ZED,
 ZED,KOR,KRY,KOR,KRY,ZED,ZED,ZED,ZED,PEN,ZED,ZED,ZED,ZED,ZED,  0,  0,  0,  0,ZED,
@@ -309,8 +327,9 @@ ZED,KOR,KRY,KOR,KRY,ZED,PEN,PEN,PEN,PEN,PEN,PEN,PEN,KOR,ZED,  0,  0,  0,  0,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,VRA,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_18_EMOCE = {.content =
-{
+static vlak_level_t LEVEL_18_EMOCE = {
+    .name = "EMOCE",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,  0,  0,  0,  0,ZED,  0,  0,  0,  0,  0,  0,  0,VRA,  0,  0,  0,  0,  0,ZED,
 ZED,  0,DOR,  0,  0,ZED,LET,  0,ZED,  0,ZED,  0,LET,ZED,  0,  0,  0,ZMR,  0,ZED,
@@ -325,8 +344,9 @@ ZED,  0,  0,  0,  0,ZED,  0,  0,  0,  0,  0,  0,  0,ZED,  0,  0,  0,  0,  0,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_19_BASTL = {.content =
-{
+static vlak_level_t LEVEL_19_BASTL = {
+    .name = "BASTL",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,ZED,
 ZED,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,ZED,
@@ -341,8 +361,9 @@ ZED,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_20_ZELVA = {.content =
-{
+static vlak_level_t LEVEL_20_ZELVA = {
+    .name = "ZELVA",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,ZED,
 ZED,  0,  0,  0,  0,KOR,  0,  0,  0,  0,  0,SLO,SLO,SLO,SLO,  0,  0,  0,  0,ZED,
@@ -357,8 +378,9 @@ ZED,TRE,JAB,TRE,JAB,TRE,JAB,ZED,ZED,  0,  0,  0,  0,  0,ZED,ZED,  0,JAB,TRE,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_21_JEANS = {.content =
-{
+static vlak_level_t LEVEL_21_JEANS = {
+    .name = "JEANS",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,STO,STO,STO,STO,ZED,  0,  0,  0,  0,  0,  0,  0,  0,ZED,STO,STO,STO,STO,ZED,
 ZED,  0,POC,  0,  0,  0,ZED,  0,  0,  0,  0,  0,  0,ZED,  0,  0,  0,POC,  0,ZED,
@@ -373,8 +395,9 @@ ZED,  0,  0,  0,  0,ZED,KRY,  0,  0,VIN,VIN,  0,  0,KRY,ZED,  0,  0,  0,  0,VRA,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_22_METAL = {.content =
-{
+static vlak_level_t LEVEL_22_METAL = {
+    .name = "METAL",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,LOK,STO,STO,STO,STO,STO,STO,  0,STO,ZED,STO,  0,STO,STO,STO,STO,STO,STO,ZED,
 ZED,  0,STO,STO,STO,STO,STO,STO,STO,STO,ZED,STO,STO,STO,STO,STO,STO,STO,STO,ZED,
@@ -389,8 +412,9 @@ VRA,  0,STO,  0,STO,  0,ZED,STO,STO,STO,ZIR,STO,STO,STO,ZED,  0,STO,  0,STO,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_23_MIKRO = {.content =
-{
+static vlak_level_t LEVEL_23_MIKRO = {
+    .name = "MIKRO",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,  0,  0,  0,  0,VIN,VIN,VIN,VIN,  0,  0,VIN,VIN,  0,  0,  0,  0,  0,  0,ZED,
 ZED,  0,  0,  0,VIN,ZED,ZED,ZED,ZED,VIN,  0,VIN,VIN,  0,  0,  0,  0,  0,  0,ZED,
@@ -405,8 +429,9 @@ ZED,  0,VIN,VIN,VIN,VIN,VIN,VIN,VIN,VIN,VIN,VIN,VIN,  0,STO,  0,STO,  0,STO,VRA,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_24_SENZA = {.content =
-{
+static vlak_level_t LEVEL_24_SENZA = {
+    .name = "SENZA",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,  0,TRE,  0,  0,ZED,  0,ZED,  0,  0,  0,ZED,  0,ZED,  0,  0,  0,TRE,  0,ZED,
 ZED,  0,TRE,  0,  0,ZED,  0,ZED,  0,  0,  0,ZED,  0,ZED,  0,  0,  0,TRE,  0,ZED,
@@ -421,8 +446,9 @@ ZED,  0,TRE,  0,  0,ZED,JAB,JAB,JAB,JAB,JAB,JAB,JAB,ZED,  0,  0,  0,TRE,  0,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,VRA,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_25_GALAX = {.content =
-{
+static vlak_level_t LEVEL_25_GALAX = {
+    .name = "GALAX",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,LOK,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,KRY,ZED,
 ZED,  0,KOR,  0,KOR,  0,KOR,  0,KOR,  0,  0,KOR,  0,KOR,  0,KOR,  0,KOR,  0,ZED,
@@ -437,8 +463,9 @@ ZED,ZED,DOR,DOR,ZED,DOR,DOR,ZED,DOR,ZED,DOR,DOR,ZED,DOR,DOR,ZED,DOR,DOR,ZED,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,VRA,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_26_STONE = {.content =
-{
+static vlak_level_t LEVEL_26_STONE = {
+    .name = "STONE",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,  0,  0,  0,  0,  0,  0,JAB,  0,TRE,  0,ZED,ZED,ZED,ZED,
 ZED,ZED,ZIR,SLO,ZIR,ZED,  0,  0,  0,STO,STO,RYB,VIN,JAB,ZED,TRE,  0,ZED,ZED,ZED,
@@ -453,8 +480,9 @@ ZED,STO,LOK,ZED,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,ZED,VRA,STO,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_27_MINES = {.content =
-{
+static vlak_level_t LEVEL_27_MINES = {
+    .name = "MINES",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,LOK,KRY,ZED,ZED,  0,KRY,  0,  0,ZED,  0,  0,KRY,  0,  0,  0,  0,  0,  0,ZED,
 ZED,  0,  0,  0,ZED,  0,ZED,  0,ZED,KRY,  0,ZED,ZED,ZED,ZED,ZED,  0,ZED,  0,ZED,
@@ -469,8 +497,9 @@ ZED,  0,KRY,  0,  0,  0,ZED,  0,  0,  0,ZED,  0,ZED,  0,ZED,  0,ZED,  0,  0,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_28_FORTE = {.content =
-{
+static vlak_level_t LEVEL_28_FORTE = {
+    .name = "FORTE",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,  0,  0,  0,  0,  0,  0,  0,  0,VRA,  0,  0,  0,  0,  0,  0,  0,  0,  0,ZED,
 ZED,  0,  0,  0,ZED,ZED,  0,  0,  0,  0,  0,  0,  0,  0,ZED,ZED,  0,  0,  0,ZED,
@@ -485,8 +514,9 @@ ZED,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_29_LUCIE = {.content =
-{
+static vlak_level_t LEVEL_29_LUCIE = {
+    .name = "LUCIE",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,  0,  0,  0,  0,ZED,  0,  0,  0,  0,ZED,  0,  0,  0,ZED,  0,  0,  0,  0,ZED,
 ZED,  0,  0,ZIR,  0,ZED,  0,KRA,  0,  0,ZED,  0,SLO,  0,ZED,  0,ZIR,  0,  0,ZED,
@@ -501,8 +531,9 @@ ZED,  0,  0,  0,  0,ZED,  0,  0,  0,ZED,  0,  0,  0,  0,ZED,  0,  0,  0,  0,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_30_NATUR = {.content =
-{
+static vlak_level_t LEVEL_30_NATUR = {
+    .name = "NATUR",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,ZED,
 ZED,  0,  0,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,  0,  0,ZED,
@@ -517,8 +548,9 @@ ZED,LOK,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,VRA,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_31_BIENE = {.content =
-{
+static vlak_level_t LEVEL_31_BIENE = {
+    .name = "BIENE",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,  0,KRY,  0,KRY,  0,KRY,  0,KRY,STO,STO,KRY,  0,KRY,  0,KRY,  0,KRY,  0,ZED,
 ZED,  0,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,  0,ZED,
@@ -533,8 +565,9 @@ ZED,  0,ZED,ZED,ZED,ZED,ZED,ZED,ZED,VRA,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,  0,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_32_KATZE = {.content =
-{
+static vlak_level_t LEVEL_32_KATZE = {
+    .name = "KATZE",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,  0,  0,  0,ZED,STO,STO,STO,STO,ZED,ZED,STO,STO,STO,STO,ZED,STO,STO,ZED,ZED,
 ZED,  0,  0,ZED,STO,STO,ZED,STO,STO,ZED,STO,STO,ZED,STO,STO,ZED,STO,STO,STO,ZED,
@@ -549,8 +582,9 @@ ZED,ZED,ZED,STO,STO,STO,STO,ZED,ZED,STO,STO,STO,STO,ZED,ZED,STO,STO,STO,STO,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_33_HYDRO = {.content =
-{
+static vlak_level_t LEVEL_33_HYDRO = {
+    .name = "HYDRO",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,  0,ZMR,ZED,ZED,ZED,ZMR,  0,  0,DOR,DOR,  0,  0,TRE,TRE,TRE,TRE,  0,  0,ZED,
 ZED,  0,ZMR,ZED,ZED,ZED,ZMR,  0,DOR,ZED,ZED,DOR,  0,TRE,ZED,ZED,ZED,TRE,  0,ZED,
@@ -565,8 +599,9 @@ ZED,  0,ZMR,ZED,ZED,ZED,ZMR,  0,  0,DOR,DOR,  0,  0,TRE,ZED,ZED,ZED,TRE,  0,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_34_FAUNA = {.content =
-{
+static vlak_level_t LEVEL_34_FAUNA = {
+    .name = "FAUNA",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,  0,  0,  0,  0,  0,  0,  0,  0,LOK,  0,  0,  0,  0,  0,  0,  0,  0,  0,ZED,
 ZED,  0,  0,  0,ZED,VIN,VIN,VIN,VIN,VIN,VIN,VIN,VIN,VIN,VIN,ZED,  0,  0,  0,ZED,
@@ -581,8 +616,9 @@ ZED,  0,  0,  0,ZED,ZED,VIN,VIN,VIN,VIN,VIN,VIN,VIN,VIN,ZED,ZED,  0,  0,  0,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,VRA,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_35_ULTRA = {.content =
-{
+static vlak_level_t LEVEL_35_ULTRA = {
+    .name = "ULTRA",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,  0,  0,  0,  0,  0,  0,  0,  0,KOR,  0,  0,  0,  0,  0,  0,  0,  0,  0,ZED,
 ZED,  0,  0,  0,  0,  0,  0,  0,ZED,VRA,ZED,  0,  0,  0,  0,  0,  0,  0,  0,ZED,
@@ -597,8 +633,9 @@ ZED,STO,STO,STO,STO,STO,STO,STO,STO,STO,STO,STO,STO,STO,STO,STO,STO,STO,STO,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_36_TODAY = {.content =
-{
+static vlak_level_t LEVEL_36_TODAY = {
+    .name = "TODAY",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,ZED,LOK,ZED,  0,  0,  0,ZED,  0,  0,  0,ZED,  0,  0,  0,ZED,  0,  0,  0,ZED,
 ZED,ZED,  0,ZED,  0,KOR,  0,ZED,  0,KOR,  0,ZED,  0,KOR,  0,ZED,  0,KOR,  0,ZED,
@@ -613,8 +650,9 @@ ZED,ZED,  0,KRY,  0,ZED,  0,  0,  0,ZED,  0,  0,  0,ZED,  0,KRY,  0,ZED,  0,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,VRA,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_37_HOROR = {.content =
-{
+static vlak_level_t LEVEL_37_HOROR = {
+    .name = "HOROR",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,  0,  0,  0,ZED,TRE,TRE,TRE,TRE,TRE,TRE,TRE,TRE,TRE,TRE,ZED,  0,  0,  0,ZED,
 ZED,  0,  0,  0,ZED,TRE,JAB,JAB,JAB,TRE,TRE,JAB,JAB,JAB,TRE,ZED,  0,  0,  0,ZED,
@@ -629,8 +667,9 @@ ZED,  0,  0,  0,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,  0,  0,  0,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_38_GAPPA = {.content =
-{
+static vlak_level_t LEVEL_38_GAPPA = {
+    .name = "GAPPA",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,ZED,
 ZED,  0,  0,  0,  0,  0,  0,  0,STO,  0,  0,STO,  0,  0,  0,  0,  0,  0,  0,ZED,
@@ -645,8 +684,9 @@ ZED,ZED,  0,  0,  0,  0,ZED,  0,  0,ZED,  0,  0,  0,ZED,  0,  0,  0,  0,ZED,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_39_RETAL = {.content =
-{
+static vlak_level_t LEVEL_39_RETAL = {
+    .name = "RETAL",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,LOK,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,ZED,
 ZED,POC,POC,POC,POC,POC,POC,ZED,  0,  0,POC,POC,POC,POC,POC,POC,POC,ZED,  0,ZED,
@@ -661,8 +701,9 @@ ZED,POC,POC,POC,ZED,ZED,  0,  0,  0,  0,POC,POC,POC,ZED,ZED,  0,  0,  0,  0,VRA,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_40_CLOCK = {.content =
-{
+static vlak_level_t LEVEL_40_CLOCK = {
+    .name = "CLOCK",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,STO,STO,STO,STO,STO,STO,JAB,ZED,ZED,ZED,ZED,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,STO,STO,STO,STO,STO,STO,JAB,JAB,ZED,ZED,ZED,ZED,ZED,
@@ -677,8 +718,9 @@ ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,VRA,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_41_HOMER = {.content =
-{
+static vlak_level_t LEVEL_41_HOMER = {
+    .name = "HOMER",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,ZED,
 ZED,RYB,ZED,RYB,ZED,RYB,ZED,RYB,ZED,  0,  0,ZED,RYB,ZED,RYB,ZED,RYB,ZED,RYB,ZED,
@@ -693,8 +735,9 @@ ZED,  0,  0,  0,  0,  0,  0,  0,  0,  0,LOK,  0,  0,  0,  0,  0,  0,  0,  0,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,VRA,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_42_BUNNY = {.content =
-{
+static vlak_level_t LEVEL_42_BUNNY = {
+    .name = "BUNNY",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,ZED,ZED,ZED,ZED,ZMR,ZMR,ZED,ZED,ZED,ZED,ZED,ZED,DOR,VRA,ZED,ZED,ZED,ZED,ZED,
 ZED,ZED,ZED,ZED,ZMR,ZMR,ZMR,ZMR,ZED,ZED,ZED,ZED,ZED,ZMR,ZMR,ZED,ZED,ZED,ZED,ZED,
@@ -709,8 +752,9 @@ ZED,ZED,ZED,ZED,ZED,DOR,LOK,ZED,ZED,ZED,ZED,ZED,ZED,ZMR,ZMR,ZED,ZED,ZED,ZED,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_43_FOTON = {.content =
-{
+static vlak_level_t LEVEL_43_FOTON = {
+    .name = "FOTON",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,  0,  0,  0,BUD,  0,  0,  0,RYB,ZED,TRE,  0,  0,  0,JAB,  0,  0,  0,  0,ZED,
 ZED,  0,  0,ZED,ZED,BUD,  0,ZED,RYB,ZED,TRE,ZED,  0,JAB,ZED,ZED,  0,  0,  0,ZED,
@@ -725,8 +769,9 @@ ZED,  0,  0,JAB,  0,  0,  0,  0,TRE,  0,RYB,  0,  0,  0,  0,BUD,  0,  0,  0,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_44_QUACK = {.content =
-{
+static vlak_level_t LEVEL_44_QUACK = {
+    .name = "QUACK",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,ZED,  0,STO,STO,  0,ZED,ZED,ZED,ZED,ZED,  0,STO,STO,  0,ZED,ZED,ZED,ZED,ZED,
 ZED,  0,STO,ZED,ZED,STO,ZED,ZED,STO,STO,  0,STO,ZED,ZED,STO,  0,STO,STO,  0,ZED,
@@ -741,8 +786,9 @@ ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_45_HAFIK = {.content =
-{
+static vlak_level_t LEVEL_45_HAFIK = {
+    .name = "HAFIK",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,  0,ZMR,ZMR,  0,LOK,  0,  0,DOR,DOR,  0,  0,  0,  0,TRE,TRE,  0,  0,  0,ZED,
 ZED,ZMR,ZED,ZED,ZMR,  0,  0,DOR,ZED,ZED,DOR,  0,  0,TRE,ZED,ZED,TRE,  0,  0,ZED,
@@ -757,8 +803,9 @@ ZED,  0,ZMR,ZMR,  0,  0,  0,  0,DOR,DOR,  0,  0,  0,  0,ZED,ZED,  0,  0,  0,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_46_DIZZY = {.content =
-{
+static vlak_level_t LEVEL_46_DIZZY = {
+    .name = "DIZZY",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,LOK,  0,SLO,  0,ZED,KRA,KRA,ZED,  0,ZIR,  0,ZIR,  0,ZIR,  0,ZED,  0,  0,ZED,
 ZED,  0,SLO,  0,SLO,ZED,KRA,ZIR,ZED,  0,  0,SLO,  0,SLO,  0,  0,ZED,STO,RYB,ZED,
@@ -773,8 +820,9 @@ ZED,RYB,RYB,ZED,SLO,  0,SLO,  0,  0,  0,ZIR,ZED,ZIR,ZIR,ZED,SLO,SLO,SLO,SLO,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_47_STARK = {.content =
-{
+static vlak_level_t LEVEL_47_STARK = {
+    .name = "STARK",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,  0,  0,  0,  0,VIN,  0,  0,  0,  0,  0,  0,  0,VIN,  0,  0,  0,  0,  0,ZED,
 ZED,  0,ZED,ZED,ZED,VIN,ZED,AUT,ZED,LET,ZED,AUT,ZED,VIN,ZED,ZED,ZED,ZED,  0,ZED,
@@ -789,8 +837,9 @@ ZED,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,VRA,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_48_ZARAZ = {.content =
-{
+static vlak_level_t LEVEL_48_ZARAZ = {
+    .name = "ZARAZ",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,  0,  0,  0,  0,  0,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,  0,  0,  0,  0,  0,ZED,
 ZED,  0,TRE,ZED,JAB,  0,ZED,ZIR,ZIR,ZIR,ZIR,ZIR,ZIR,ZED,  0,JAB,ZED,TRE,  0,ZED,
@@ -805,8 +854,9 @@ ZED,  0,  0,  0,  0,  0,  0,  0,  0,ZED,ZED,  0,  0,  0,  0,  0,  0,  0,  0,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_49_DUKEN = {.content =
-{
+static vlak_level_t LEVEL_49_DUKEN = {
+    .name = "DUKEN",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,  0,  0,  0,  0,  0,  0,  0,  0,LOK,  0,  0,  0,  0,  0,  0,  0,  0,  0,ZED,
 ZED,  0,ZED,STO,ZED,ZED,STO,STO,ZED,STO,STO,ZED,STO,STO,ZED,ZED,STO,ZED,  0,ZED,
@@ -821,8 +871,9 @@ ZED,  0,  0,  0,  0,  0,  0,  0,  0,VRA,ZED,  0,  0,  0,  0,  0,  0,  0,  0,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_50_STORY = {.content =
-{
+static vlak_level_t LEVEL_50_STORY = {
+    .name = "STORY",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,KRY,KOR,STO,JAB,KRA,TRE,RYB,ZIR,ZMR,DOR,POC,AUT,BAL,BUD,SLO,VIN,PEN,LET,ZED,
 ZED,KRY,KOR,STO,JAB,ZED,ZED,ZED,ZED,ZMR,DOR,ZED,ZED,ZED,ZED,SLO,VIN,PEN,LET,ZED,
@@ -837,8 +888,9 @@ ZED,KRY,KOR,STO,JAB,KRA,TRE,RYB,ZIR,ZMR,DOR,POC,AUT,BAL,BUD,SLO,VIN,PEN,LET,ZED,
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED
 }};
 
-static vlak_level_t LEVEL_51_OCOMP = {.content =
-{
+static vlak_level_t LEVEL_51_OCOMP = {
+    .name = "OCOMP",
+    .content = {
 ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,ZED,
 ZED,  0,  0,  0,  0,  0,  0,KOR,  0,KOR,  0,KOR,  0,  0,  0,  0,  0,  0,  0,ZED,
 ZED,  0,  0,JAB,  0,  0,ZED,KRY,KOR,KRY,KOR,KRY,ZED,  0,  0,JAB,  0,  0,POC,ZED,
