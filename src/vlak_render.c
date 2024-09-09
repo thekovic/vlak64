@@ -31,7 +31,18 @@ void vlak_text_init()
 
 void vlak_render_border()
 {
+    sprite_t* zed_sprite = vlak_sprite_array[ZED]->anim_frames[vlak_sprite_array[ZED]->nframes - 1];
 
+    // upload sprite manually so we can use texture_rect
+    rdpq_sprite_upload(TILE0, zed_sprite, &(rdpq_texparms_t) {.s = {.repeats = REPEAT_INFINITE}});
+    // top bar
+    rdpq_texture_rectangle(TILE0, 0, 0, LEVEL_WIDTH * TILE_SIZE, TILE_SIZE, 0, 0);
+    // bottom bar
+    rdpq_texture_rectangle(TILE0, 0, (LEVEL_HEIGHT + 2) * TILE_SIZE, LEVEL_WIDTH * TILE_SIZE, (LEVEL_HEIGHT + 3) * TILE_SIZE, 0, 0);
+
+    // tiles to the left and right of text bar
+    rdpq_sprite_blit(zed_sprite, 0, (LEVEL_HEIGHT + 1) * TILE_SIZE, NULL);
+    rdpq_sprite_blit(zed_sprite, (LEVEL_WIDTH - 1) * TILE_SIZE, (LEVEL_HEIGHT + 1) * TILE_SIZE, NULL);
 }
 
 void vlak_render_level(vlak_level_t* level)
