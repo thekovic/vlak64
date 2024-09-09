@@ -142,12 +142,12 @@ void vlak_render_level(vlak_level_t* level)
                 case JOYPAD_8WAY_UP:
                     tile_x = tile_x + (sprite->width / 2);
                     tile_y = tile_y  + (sprite->height / 2);
-                    blitparms = (rdpq_blitparms_t) {.cx = sprite->width / 2, .cy = sprite->height / 2, .theta = 1.57079633f};
+                    blitparms = (rdpq_blitparms_t) {.cx = sprite->width / 2, .cy = sprite->height / 2, .theta = 1.57079633f, .flip_y = true};
                     break;
                 case JOYPAD_8WAY_DOWN:
                     tile_x = tile_x + (sprite->width / 2);
                     tile_y = tile_y  + (sprite->height / 2);
-                    blitparms = (rdpq_blitparms_t) {.cx = sprite->width / 2, .cy = sprite->height / 2, .theta = -1.57079633f};
+                    blitparms = (rdpq_blitparms_t) {.cx = sprite->width / 2, .cy = sprite->height / 2, .theta = -1.57079633f, .flip_y = true};
                     break;
                 case JOYPAD_8WAY_LEFT:
                     blitparms = (rdpq_blitparms_t) {.flip_x = true};
