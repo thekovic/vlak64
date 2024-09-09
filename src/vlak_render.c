@@ -183,6 +183,12 @@ void vlak_render_level(vlak_level_t* level)
 
 void vlak_render_title_screen()
 {
+    rdpq_text_printf(&(rdpq_textparms_t) {.style_id = 0}, FONT_BUILTIN_DEBUG_MONO, 1.25 * TILE_SIZE, 10.75 * TILE_SIZE,
+        "VLAK 64 by the_kovic    Made with Libdragon SDK");
+    rdpq_text_printf(&(rdpq_textparms_t) {.style_id = 0}, FONT_BUILTIN_DEBUG_MONO, 1.25 * TILE_SIZE, 11.75 * TILE_SIZE,
+        "Based on free game by Miroslav Nemecek    ^02\u00A92024");
+    rdpq_text_printf(&(rdpq_textparms_t) {.style_id = 1}, FONT_BUILTIN_DEBUG_MONO, 6.5 * TILE_SIZE, 13.75 * TILE_SIZE,
+        "Press ^03START ^01button");
 }
 
 void vlak_render_transition()
