@@ -8,7 +8,7 @@
 typedef struct vlak_sprite_s
 {
     uint8_t nframes;
-    sprite_t* animation_frames[6];
+    sprite_t* anim_frames[6];
 } vlak_sprite_t;
 
 extern vlak_sprite_t* vlak_sprite_array[NUM_LEVEL_ELEMENTS];

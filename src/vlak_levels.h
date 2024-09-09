@@ -3,6 +3,8 @@
 
 #include <libdragon.h>
 
+#include "vlak_elements.h"
+
 #define LEVEL_WIDTH (20)
 #define LEVEL_HEIGHT (12)
 #define LEVEL_LEN (LEVEL_WIDTH * LEVEL_HEIGHT)
@@ -17,7 +19,7 @@ typedef struct level_s
 
 extern vlak_level_t* vlak_level_array[LEVEL_MAX];
 
-int vlak_level_get_vlak_pos(vlak_level_t* level);
+int vlak_level_get_element_pos(vlak_level_t* level, vlak_element_t element);
 #define vlak_level_pos_to_x(pos) ((pos) % LEVEL_WIDTH)
 #define vlak_level_pos_to_y(pos) ((pos) / LEVEL_WIDTH)
 int vlak_level_xy_to_pos(int x, int y);

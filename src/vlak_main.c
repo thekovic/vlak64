@@ -5,14 +5,24 @@
 
 #define TILE_SIZE (16)
 
+typedef enum
+{
+    ANIM_NOT_STARTED,
+    ANIM_GOING,
+    ANIM_FINISHED
+} vlak_animation_state_t;
+
 static uint32_t animation_counter = 0;
 
 static bool vlak_moving = false;
 static joypad_8way_t vlak_direction_queued = JOYPAD_8WAY_RIGHT;
 static joypad_8way_t vlak_direction = JOYPAD_8WAY_RIGHT;
-static int vlak_pos = -1;
 
-static bool vrata_opening = false;
+static vlak_animation_state_t vlak_explosion_anim = ANIM_NOT_STARTED;
+static uint32_t vlak_explosion_time = 0;
+
+static vlak_animation_state_t vrata_opening_anim = ANIM_NOT_STARTED;
+static uint32_t vrata_opening_time = 0;
 
 static bool should_load_level = true;
 static int current_level_id = 1;
@@ -24,8 +34,8 @@ void vlak_load_level()
 
     vlak_moving = false;
     vlak_direction = JOYPAD_8WAY_RIGHT;
-    vlak_pos = vlak_level_get_vlak_pos(&current_level);
-    vrata_opening = false;
+    vlak_explosion_anim = ANIM_NOT_STARTED;
+    vrata_opening_anim = ANIM_NOT_STARTED;
     should_load_level = false;
 }
 
@@ -58,7 +68,6 @@ void vlak_process_input()
         case JOYPAD_8WAY_LEFT:
             vlak_direction_queued = direction;
             break;
-        
         default:
             break;
     }
@@ -66,7 +75,7 @@ void vlak_process_input()
 
 void vlak_move()
 {
-    int vlak_pos = vlak_level_get_vlak_pos(&current_level);
+    int vlak_pos = vlak_level_get_element_pos(&current_level, LOK);
     int next_pos;
     vlak_direction = vlak_direction_queued;
 
@@ -96,7 +105,9 @@ void vlak_move()
 
     if (tile_id == ZED)
     {
-        current_level.content[vlak_pos] = LOK_DED;
+        current_level.content[vlak_pos] = LOK_BOOM;
+        vlak_explosion_anim = ANIM_GOING;
+        vlak_explosion_time = animation_counter;
         vlak_moving = false;
     }
     else 
@@ -110,23 +121,63 @@ void vlak_render_level(vlak_level_t* level)
 {
     for (int tile = 0; tile < LEVEL_LEN; tile++)
     {
-        int tile_x = vlak_level_pos_to_x(tile) * TILE_SIZE;
+        int tile_x = (vlak_level_pos_to_x(tile)) * TILE_SIZE;
         int tile_y = (vlak_level_pos_to_y(tile) + 1) * TILE_SIZE;
         vlak_element_t tile_id = level->content[tile];
 
         vlak_sprite_t* vlak_sprite = vlak_sprite_array[tile_id];
+        // skip when no sprite defined
         if (vlak_sprite == NULL)
         {
             continue;
         }
 
-        int animation_frame = (vlak_sprite->nframes == 1) ? 0 : animation_counter % vlak_sprite->nframes;
-        if (!vrata_opening && tile_id == VRA)
+        int anim_frame = 0;
+        switch (tile_id)
         {
-            animation_frame = 0;
+            case VRA:
+                switch (vrata_opening_anim)
+                {
+                    case ANIM_NOT_STARTED:
+                        anim_frame = 0;
+                        break;
+                    case ANIM_GOING:
+                        anim_frame = animation_counter - vrata_opening_time;
+                        if (anim_frame == (vlak_sprite->nframes - 1))
+                        {
+                            vrata_opening_anim = ANIM_FINISHED;
+                        }
+                        break;
+                    case ANIM_FINISHED:
+                        anim_frame = vlak_sprite->nframes - 1;
+                        break;
+                }
+                break;
+            case LOK_BOOM:
+                switch (vlak_explosion_anim)
+                {
+                    case ANIM_NOT_STARTED:
+                        anim_frame = 0;
+                        break;
+                    case ANIM_GOING:
+                        anim_frame = animation_counter - vlak_explosion_time;
+                        if (anim_frame == (vlak_sprite->nframes - 1))
+                        {
+                            vlak_explosion_anim = ANIM_FINISHED;
+                            current_level.content[tile] = LOK_DED;
+                        }
+                        break;
+                    case ANIM_FINISHED:
+                        anim_frame = vlak_sprite->nframes - 1;
+                        break;
+                }
+                break;
+            default:
+                anim_frame = (vlak_sprite->nframes == 1) ? 0 : animation_counter % vlak_sprite->nframes;
+                break;
         }
 
-        sprite_t* sprite = vlak_sprite->animation_frames[animation_frame];
+        sprite_t* sprite = vlak_sprite->anim_frames[anim_frame];
 
         rdpq_blitparms_t blitparms = {0};
         if (tile_id == LOK)
@@ -136,17 +187,16 @@ void vlak_render_level(vlak_level_t* level)
                 case JOYPAD_8WAY_UP:
                     tile_x = tile_x + (sprite->width / 2);
                     tile_y = tile_y  + (sprite->height / 2);
-                    blitparms = (rdpq_blitparms_t) {.cx = sprite->width / 2, .cy = sprite->height / 2, .theta = 1.570796f};
+                    blitparms = (rdpq_blitparms_t) {.cx = sprite->width / 2, .cy = sprite->height / 2, .theta = 1.57079633f};
                     break;
                 case JOYPAD_8WAY_DOWN:
                     tile_x = tile_x + (sprite->width / 2);
                     tile_y = tile_y  + (sprite->height / 2);
-                    blitparms = (rdpq_blitparms_t) {.cx = sprite->width / 2, .cy = sprite->height / 2, .theta = -1.570796f};
+                    blitparms = (rdpq_blitparms_t) {.cx = sprite->width / 2, .cy = sprite->height / 2, .theta = -1.57079633f};
                     break;
                 case JOYPAD_8WAY_LEFT:
                     blitparms = (rdpq_blitparms_t) {.flip_x = true};
                     break;
-                
                 default:
                     break;
             }
@@ -162,7 +212,7 @@ int main()
     dfs_init(DFS_DEFAULT_LOCATION);
     rdpq_init();
 
-    display_init(RESOLUTION_320x240, DEPTH_32_BPP, 3, GAMMA_NONE, FILTERS_DISABLED);
+    display_init((resolution_t) {.width = 320, .height = 240}, DEPTH_32_BPP, 3, GAMMA_NONE, FILTERS_DISABLED);
 
     display_set_fps_limit(10);
 

@@ -1,13 +1,13 @@
 #include "vlak_levels.h"
 #include "vlak_elements.h"
 
-int vlak_level_get_vlak_pos(vlak_level_t* level)
+int vlak_level_get_element_pos(vlak_level_t* level, vlak_element_t element)
 {
     for (int tile = 0; tile < LEVEL_LEN; tile++)
     {
         vlak_element_t tile_id = level->content[tile];
 
-        if (tile_id == LOK)
+        if (tile_id == element)
         {
             return tile;
         }

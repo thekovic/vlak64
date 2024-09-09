@@ -1,7 +1,7 @@
 #ifndef VLAK_ELEMENTS_H
 #define VLAK_ELEMENTS_H
 
-typedef enum vlak_element_s
+typedef enum
 {
     KRY = 1,    // KRYSTAL (CRYSTAL)
     KOR = 2,    // KORUNA (CROWN)
@@ -23,7 +23,7 @@ typedef enum vlak_element_s
     LET = 18,   // LETADLO (AIRPLANE)
     VRA,        // VRATA (DOOR)
     ZED,        // ZED (WALL)
-    // TODO: LOK_BOOM VLAK VYBUCH (TRAIN EXPLOSION)
+    LOK_BOOM,    // VLAK VYBUCH (TRAIN EXPLOSION)
     LOK_DED,    // VLAK TROSKA (TRAIN RUIN)
     LOK,        // VLAK (TRAIN)
     // VAGONY (WAGONS)
