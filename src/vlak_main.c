@@ -77,6 +77,10 @@ void vlak_process_input()
         current_level_id--;
         should_load_level = true;
     }
+    if (pressed.start && vlak_explosion_anim == ANIM_FINISHED)
+    {
+        should_load_level = true;
+    }
 
     joypad_8way_t direction = joypad_get_direction(JOYPAD_PORT_1, JOYPAD_2D_ANY);
     // start moving vlak if stopped and not exploded
@@ -174,6 +178,8 @@ void vlak_move()
         vlak_explosion_anim = ANIM_GOING;
         vlak_explosion_time = animation_counter;
         vlak_moving = false;
+        // score penalty upon explosion
+        game_score -= (items_to_collect / 4);
     }
     else if ((tile_id == VRA && vrata_opening_anim != ANIM_NOT_STARTED))
     {
@@ -343,12 +349,20 @@ int main()
 
         vlak_render_level(&current_level);
 
-        rdpq_text_printf(&(rdpq_textparms_t) {.style_id = 1}, FONT_BUILTIN_DEBUG_MONO, 1.5 * TILE_SIZE, 13.75 * TILE_SIZE,
-            "SCORE: ^02%i0", game_score);
-        rdpq_text_printf(&(rdpq_textparms_t) {.style_id = 3}, FONT_BUILTIN_DEBUG_MONO, 6.5 * TILE_SIZE, 13.75 * TILE_SIZE,
-            "GET: %i HAVE: %i", items_to_collect, items_collected);
-        rdpq_text_printf(&(rdpq_textparms_t) {.style_id = 1}, FONT_BUILTIN_DEBUG_MONO, 13.5 * TILE_SIZE, 13.75 * TILE_SIZE,
-            "LEVEL ^02%i^01: ^02%s", current_level_id, current_level.name);
+        if (vlak_explosion_anim == ANIM_FINISHED)
+        {
+            rdpq_text_printf(&(rdpq_textparms_t) {.style_id = 1}, FONT_BUILTIN_DEBUG_MONO, 4.75 * TILE_SIZE, 13.75 * TILE_SIZE,
+                "Press ^03START ^01to restart level");
+        }
+        else
+        {
+            rdpq_text_printf(&(rdpq_textparms_t) {.style_id = 1}, FONT_BUILTIN_DEBUG_MONO, 1.25 * TILE_SIZE, 13.75 * TILE_SIZE,
+                "SCORE: ^02%i0", game_score);
+            rdpq_text_printf(&(rdpq_textparms_t) {.style_id = 3}, FONT_BUILTIN_DEBUG_MONO, 6.25 * TILE_SIZE, 13.75 * TILE_SIZE,
+                "GET: ^02%02i ^03HAVE: ^02%02i", items_to_collect, items_collected);
+            rdpq_text_printf(&(rdpq_textparms_t) {.style_id = 1}, FONT_BUILTIN_DEBUG_MONO, 13.25 * TILE_SIZE, 13.75 * TILE_SIZE,
+                "LEVEL ^02%02i^01: ^02%s", current_level_id, current_level.name);
+        }
 
         rdpq_detach_show();
 
