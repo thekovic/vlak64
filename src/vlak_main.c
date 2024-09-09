@@ -7,6 +7,13 @@
 
 typedef enum
 {
+    TEXT_GREEN = 1,
+    TEXT_YELLOW,
+    TEXT_RED
+} vlak_text_color_t;
+
+typedef enum
+{
     ANIM_NOT_STARTED,
     ANIM_GOING,
     ANIM_FINISHED
@@ -55,7 +62,7 @@ void vlak_process_input()
     }
 
     joypad_8way_t direction = joypad_get_direction(JOYPAD_PORT_1, JOYPAD_2D_ANY);
-    if (!vlak_moving && direction != JOYPAD_8WAY_NONE)
+    if (!vlak_moving && vlak_explosion_anim == ANIM_NOT_STARTED && direction != JOYPAD_8WAY_NONE)
     {
         vlak_moving = true;
     }
@@ -218,6 +225,19 @@ int main()
 
     vlak_sprite_init();
 
+    rdpq_font_t* font = __rdpq_font_load_builtin_1();
+    rdpq_text_register_font(FONT_BUILTIN_DEBUG_MONO, font);
+
+    rdpq_font_style(font, TEXT_GREEN, &(rdpq_fontstyle_t) { 
+        .color = RGBA32(85, 255, 85, 255)
+    });
+    rdpq_font_style(font, TEXT_YELLOW, &(rdpq_fontstyle_t) { 
+        .color = RGBA32(255, 255, 85, 255)
+    });
+    rdpq_font_style(font, TEXT_RED, &(rdpq_fontstyle_t) { 
+        .color = RGBA32(255, 85, 85, 255)
+    });
+
     while (1)
     {
         if (should_load_level)
@@ -237,6 +257,8 @@ int main()
         rdpq_set_mode_standard();
 
         vlak_render_level(&current_level);
+
+        rdpq_text_printf(&(rdpq_textparms_t) {.style_id = 1}, FONT_BUILTIN_DEBUG_MONO, 13.5 * TILE_SIZE, 13.75 * TILE_SIZE, "LEVEL ^02%i^01: ^02%s", current_level_id, current_level.name);
 
         rdpq_detach_show();
 
