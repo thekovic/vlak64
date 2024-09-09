@@ -2,6 +2,7 @@
 
 static vlak_sprite_t krystal_sprite;
 static vlak_sprite_t koruna_sprite;
+static vlak_sprite_t strom_sprite;
 
 static vlak_sprite_t vrata_sprite;
 
@@ -12,6 +13,7 @@ static vlak_sprite_t vlak_dead_sprite;
 
 static vlak_sprite_t vagon_krystal_sprite;
 static vlak_sprite_t vagon_koruna_sprite;
+static vlak_sprite_t vagon_strom_sprite;
 
 vlak_sprite_t* vlak_sprite_array[NUM_LEVEL_ELEMENTS] = {
     // Empty space in level, has no sprite.
@@ -19,7 +21,7 @@ vlak_sprite_t* vlak_sprite_array[NUM_LEVEL_ELEMENTS] = {
 
     &krystal_sprite,
     &koruna_sprite,
-    NULL,
+    &strom_sprite,
     NULL,
     NULL,
 
@@ -46,7 +48,8 @@ vlak_sprite_t* vlak_sprite_array[NUM_LEVEL_ELEMENTS] = {
     &vlak_sprite,
 
     &vagon_krystal_sprite,
-    &vagon_koruna_sprite
+    &vagon_koruna_sprite,
+    &vagon_strom_sprite
 };
 
 void vlak_sprite_init()
@@ -67,6 +70,14 @@ void vlak_sprite_init()
             sprite_load("rom:/koruna2.sprite")
         }
     };
+    strom_sprite = (vlak_sprite_t) {
+        .nframes = 3,
+        .animation_frames = {
+            sprite_load("rom:/strom0.sprite"),
+            sprite_load("rom:/strom1.sprite"),
+            sprite_load("rom:/strom2.sprite")
+        }
+    };
 
     vrata_sprite = (vlak_sprite_t) {
         .nframes = 6,
@@ -80,12 +91,7 @@ void vlak_sprite_init()
         }
     };
 
-    zed_sprite = (vlak_sprite_t) {
-        .nframes = 1,
-        .animation_frames = {
-            sprite_load("rom:/zed0.sprite")
-        }
-    };
+    zed_sprite = (vlak_sprite_t) {.nframes = 1, .animation_frames = {sprite_load("rom:/zed0.sprite")}};
 
     vlak_dead_sprite = (vlak_sprite_t) {
         .nframes = 3,
@@ -104,16 +110,7 @@ void vlak_sprite_init()
         }
     };
 
-    vagon_krystal_sprite = (vlak_sprite_t) {
-        .nframes = 1,
-        .animation_frames = {
-            sprite_load("rom:/vagon_krystal0.sprite")
-        }
-    };
-    vagon_koruna_sprite = (vlak_sprite_t) {
-        .nframes = 1,
-        .animation_frames = {
-            sprite_load("rom:/vagon_koruna0.sprite")
-        }
-    };
+    vagon_krystal_sprite = (vlak_sprite_t) {.nframes = 1, .animation_frames = {sprite_load("rom:/vagon_krystal0.sprite")}};
+    vagon_koruna_sprite = (vlak_sprite_t) {.nframes = 1, .animation_frames = {sprite_load("rom:/vagon_koruna0.sprite")}};
+    vagon_strom_sprite = (vlak_sprite_t) {.nframes = 1, .animation_frames = {sprite_load("rom:/vagon_strom0.sprite")}};
 }

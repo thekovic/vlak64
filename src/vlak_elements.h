@@ -23,10 +23,15 @@ typedef enum vlak_element_s
     LET = 18,   // LETADLO (AIRPLANE)
     VRA,        // VRATA (DOOR)
     ZED,        // ZED (WALL)
-    LOK_DED,
+    // TODO: LOK_BOOM VLAK VYBUCH (TRAIN EXPLOSION)
+    LOK_DED,    // VLAK TROSKA (TRAIN RUIN)
     LOK,        // VLAK (TRAIN)
+    // VAGONY (WAGONS)
+
     VAG_KRY,
     VAG_KOR,
+    VAG_STO,
+    // TODO: MORE WAGONS
     NUM_LEVEL_ELEMENTS
 } vlak_element_t;
 
