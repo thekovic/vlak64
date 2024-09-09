@@ -22,7 +22,7 @@ int main()
 
     while (1)
     {
-        if (g.should_load_level && (g.anim_counter % 5 == 0))
+        if (g.should_load_level)
         {
             vlak_load_level();
         }

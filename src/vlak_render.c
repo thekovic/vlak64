@@ -13,6 +13,8 @@ typedef enum
     TEXT_RED
 } vlak_text_color_t;
 
+static int level_transit_line_count = 0;
+
 void vlak_text_init()
 {
     rdpq_font_t* font = __rdpq_font_load_builtin_1();
@@ -71,6 +73,7 @@ void vlak_render_level(vlak_level_t* level)
                         anim_frame = 0;
                         break;
                     case ANIM_GOING:
+                    case ANIM_REVERSE:
                         anim_frame = g.anim_counter - g.door_opening_time;
                         if (anim_frame == (vlak_sprite->nframes - 1))
                         {
@@ -89,6 +92,7 @@ void vlak_render_level(vlak_level_t* level)
                         anim_frame = 0;
                         break;
                     case ANIM_GOING:
+                    case ANIM_REVERSE:
                         anim_frame = g.anim_counter - g.train_explosion_time;
                         if (anim_frame == (vlak_sprite->nframes - 1))
                         {
@@ -177,7 +181,40 @@ void vlak_render_text()
 
 void vlak_render_transition()
 {
+    rdpq_set_mode_standard();
 
+    sprite_t* zed_sprite = vlak_sprite_array[ZED]->anim_frames[vlak_sprite_array[ZED]->nframes - 1];
+
+    // upload sprite manually so we can use texture_rect
+    rdpq_sprite_upload(TILE0, zed_sprite, &(rdpq_texparms_t) {.s = {.repeats = REPEAT_INFINITE}, .t = {.repeats = REPEAT_INFINITE}});
+
+    rdpq_texture_rectangle(TILE0, 0, 0, LEVEL_WIDTH * TILE_SIZE, TILE_SIZE * (level_transit_line_count + 1), 0, 0);
+
+    if (g.level_transit_anim == ANIM_GOING)
+    {
+        level_transit_line_count++;
+        if (level_transit_line_count >= (LEVEL_HEIGHT + 2))
+        {
+            g.level_transit_anim = ANIM_FINISHED;
+        }
+    }
+
+    if (g.level_transit_anim == ANIM_FINISHED)
+    {
+        rdpq_set_mode_fill(RGBA32(0, 0, 0, 255));
+        rdpq_fill_rectangle(5 * TILE_SIZE, 6 * TILE_SIZE, 15 * TILE_SIZE, 7 * TILE_SIZE);
+        rdpq_text_printf(&(rdpq_textparms_t) {.style_id = 1}, FONT_BUILTIN_DEBUG_MONO, 5.75 * TILE_SIZE, 6.75 * TILE_SIZE,
+            "Press ^03START ^01to continue");
+    }
+
+    if (g.level_transit_anim == ANIM_REVERSE)
+    {
+        level_transit_line_count--;
+        if (level_transit_line_count == 0)
+        {
+            g.level_transit_anim = ANIM_NOT_STARTED;
+        }
+    }
 }
 
 void vlak_render()
@@ -191,6 +228,11 @@ void vlak_render()
     vlak_render_level(&g.current_level);
 
     vlak_render_text();
+
+    if (g.level_transit_anim != ANIM_NOT_STARTED)
+    {
+        vlak_render_transition();
+    }
 
     rdpq_detach_show();
 }

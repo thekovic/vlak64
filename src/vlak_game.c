@@ -46,9 +46,18 @@ void vlak_process_input()
         g.current_level_id--;
         g.should_load_level = true;
     }
-    if (pressed.start && g.train_explosion_anim == ANIM_FINISHED)
+    if (pressed.start)
     {
-        g.should_load_level = true;
+        if (g.train_explosion_anim == ANIM_FINISHED)
+        {
+            g.should_load_level = true;
+        }
+        if (g.level_transit_anim == ANIM_FINISHED)
+        {
+            g.level_transit_anim = ANIM_REVERSE;
+            g.current_level_id++;
+            g.should_load_level = true;
+        }
     }
 
     joypad_8way_t direction = joypad_get_direction(JOYPAD_PORT_1, JOYPAD_2D_ANY);
@@ -186,8 +195,9 @@ void vlak_collision_check()
     // enter door and exit level
     else if ((tile_id == VRA && g.door_opening_anim != ANIM_NOT_STARTED))
     {
-        g.current_level_id++;
-        g.should_load_level = true;
+        g.level_transit_anim = ANIM_GOING;
+        g.level_transit_time = g.anim_counter;
+        g.train_moving = false;
 
         vlak_move(train_pos, next_pos, NIC);
     }

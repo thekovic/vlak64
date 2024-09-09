@@ -10,7 +10,8 @@ typedef enum
 {
     ANIM_NOT_STARTED,
     ANIM_GOING,
-    ANIM_FINISHED
+    ANIM_FINISHED,
+    ANIM_REVERSE
 } vlak_anim_state_t;
 
 typedef struct vlak_wagon_s
@@ -23,6 +24,9 @@ typedef struct vlak_wagon_s
 typedef struct vlak_game_s
 {
     uint32_t anim_counter;
+
+    vlak_anim_state_t level_transit_anim;
+    uint32_t level_transit_time;
 
     bool train_moving;
     joypad_8way_t train_direction_queued;
