@@ -1,4 +1,5 @@
 #include "vlak_game.h"
+#include "vlak_sfx.h"
 
 // global game state
 vlak_game_t g = {0};
@@ -245,6 +246,7 @@ void vlak_collision_check()
         g.train_moving = false;
         // score penalty upon explosion
         g.game_score -= (g.items_to_collect / 4);
+        wav64_play(&vlak_sfx_boom, 3);
     }
     // enter door and exit level
     else if ((tile_id == VRA && g.door_opening_anim != ANIM_NOT_STARTED))
@@ -253,6 +255,7 @@ void vlak_collision_check()
         g.train_moving = false;
 
         vlak_move(train_pos, next_pos, NIC);
+        wav64_play(&vlak_sfx_win, 2);
     }
     // collect item
     else if (tile_id > NIC && tile_id <= LET)
@@ -284,11 +287,14 @@ void vlak_collision_check()
             g.door_opening_anim = ANIM_GOING;
             g.door_opening_time = g.anim_counter;
         }
+
+        wav64_play(&vlak_sfx_collect, 1);
     }
     // move to empty tile
     else 
     {
         vlak_move(train_pos, next_pos, NIC);
+        wav64_play(&vlak_sfx_step, 0);
     }
 
     g.train_direction = g.train_direction_queued;
