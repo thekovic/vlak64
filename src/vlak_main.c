@@ -12,7 +12,7 @@ int main()
 
     display_init((resolution_t) {.width = 320, .height = 240}, DEPTH_32_BPP, 3, GAMMA_NONE, FILTERS_DISABLED);
 
-    display_set_fps_limit(10);
+    display_set_fps_limit(12);
 
     vlak_sprite_init();
 
