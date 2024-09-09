@@ -90,7 +90,7 @@ void vlak_move()
             break;
     }
 
-    assertf(next_pos != -1, "Went out of the map somehow.");
+    assertf(next_pos != -1, "Invalid vlak direction.");
 
     vlak_element_t tile_id = current_level.content[next_pos];
 

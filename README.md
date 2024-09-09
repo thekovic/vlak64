@@ -1,2 +1,2 @@
 # vlak64
- Port of classic DOS game Vlak to Nintendo 64 using libdragon SDK.
+ Reimplementation of classic DOS game Vlak for Nintendo 64 using libdragon SDK.
