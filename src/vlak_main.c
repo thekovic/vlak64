@@ -62,6 +62,7 @@ void vlak_process_input()
     }
 
     joypad_8way_t direction = joypad_get_direction(JOYPAD_PORT_1, JOYPAD_2D_ANY);
+    // start moving vlak if stopped and not exploded
     if (!vlak_moving && vlak_explosion_anim == ANIM_NOT_STARTED && direction != JOYPAD_8WAY_NONE)
     {
         vlak_moving = true;
@@ -74,6 +75,46 @@ void vlak_process_input()
         case JOYPAD_8WAY_DOWN:
         case JOYPAD_8WAY_LEFT:
             vlak_direction_queued = direction;
+            break;
+        case JOYPAD_8WAY_UP_LEFT:
+            if (vlak_direction == JOYPAD_8WAY_UP)
+            {
+                vlak_direction_queued = JOYPAD_8WAY_LEFT;
+            }
+            else if (vlak_direction == JOYPAD_8WAY_LEFT)
+            {
+                vlak_direction_queued = JOYPAD_8WAY_UP;
+            }
+            break;
+        case JOYPAD_8WAY_UP_RIGHT:
+            if (vlak_direction == JOYPAD_8WAY_UP)
+            {
+                vlak_direction_queued = JOYPAD_8WAY_RIGHT;
+            }
+            else if (vlak_direction == JOYPAD_8WAY_RIGHT)
+            {
+                vlak_direction_queued = JOYPAD_8WAY_UP;
+            }
+            break;
+        case JOYPAD_8WAY_DOWN_LEFT:
+            if (vlak_direction == JOYPAD_8WAY_DOWN)
+            {
+                vlak_direction_queued = JOYPAD_8WAY_LEFT;
+            }
+            else if (vlak_direction == JOYPAD_8WAY_LEFT)
+            {
+                vlak_direction_queued = JOYPAD_8WAY_DOWN;
+            }
+            break;
+        case JOYPAD_8WAY_DOWN_RIGHT:
+            if (vlak_direction == JOYPAD_8WAY_DOWN)
+            {
+                vlak_direction_queued = JOYPAD_8WAY_RIGHT;
+            }
+            else if (vlak_direction == JOYPAD_8WAY_RIGHT)
+            {
+                vlak_direction_queued = JOYPAD_8WAY_DOWN;
+            }
             break;
         default:
             break;
