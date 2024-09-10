@@ -65,7 +65,7 @@ void vlak_process_input()
         }
     }
     // early return if we're on title screen
-    if (g.title_screen_playing)
+    if (g.title_screen_playing || g.level_transit_anim != ANIM_NOT_STARTED)
     {
         return;
     }
