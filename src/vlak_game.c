@@ -100,47 +100,75 @@ void vlak_process_input()
             break;
         // something to handle diagonal inputs (still recommend to not use them)
         case JOYPAD_8WAY_UP_LEFT:
-            if (g.train_direction == JOYPAD_8WAY_UP)
+            switch (g.train_direction)
             {
-                g.train_direction_queued = JOYPAD_8WAY_LEFT;
-            }
-            else if (g.train_direction == JOYPAD_8WAY_LEFT)
-            {
-                g.train_direction_queued = JOYPAD_8WAY_UP;
+                case JOYPAD_8WAY_UP:
+                case JOYPAD_8WAY_DOWN:
+                    g.train_direction_queued = JOYPAD_8WAY_LEFT;
+                    break;
+                case JOYPAD_8WAY_RIGHT:
+                case JOYPAD_8WAY_LEFT:
+                    g.train_direction_queued = JOYPAD_8WAY_UP;
+                    break;
+                default:
+                    break;
             }
             break;
         case JOYPAD_8WAY_UP_RIGHT:
-            if (g.train_direction == JOYPAD_8WAY_UP)
+            switch (g.train_direction)
             {
-                g.train_direction_queued = JOYPAD_8WAY_RIGHT;
-            }
-            else if (g.train_direction == JOYPAD_8WAY_RIGHT)
-            {
-                g.train_direction_queued = JOYPAD_8WAY_UP;
+                case JOYPAD_8WAY_UP:
+                case JOYPAD_8WAY_DOWN:
+                    g.train_direction_queued = JOYPAD_8WAY_RIGHT;
+                    break;
+                case JOYPAD_8WAY_RIGHT:
+                case JOYPAD_8WAY_LEFT:
+                    g.train_direction_queued = JOYPAD_8WAY_UP;
+                    break;
+                default:
+                    break;
             }
             break;
         case JOYPAD_8WAY_DOWN_LEFT:
-            if (g.train_direction == JOYPAD_8WAY_DOWN)
+            switch (g.train_direction)
             {
-                g.train_direction_queued = JOYPAD_8WAY_LEFT;
-            }
-            else if (g.train_direction == JOYPAD_8WAY_LEFT)
-            {
-                g.train_direction_queued = JOYPAD_8WAY_DOWN;
+                case JOYPAD_8WAY_UP:
+                case JOYPAD_8WAY_DOWN:
+                    g.train_direction_queued = JOYPAD_8WAY_LEFT;
+                    break;
+                case JOYPAD_8WAY_RIGHT:
+                case JOYPAD_8WAY_LEFT:
+                    g.train_direction_queued = JOYPAD_8WAY_DOWN;
+                    break;
+                default:
+                    break;
             }
             break;
         case JOYPAD_8WAY_DOWN_RIGHT:
-            if (g.train_direction == JOYPAD_8WAY_DOWN)
+            switch (g.train_direction)
             {
-                g.train_direction_queued = JOYPAD_8WAY_RIGHT;
-            }
-            else if (g.train_direction == JOYPAD_8WAY_RIGHT)
-            {
-                g.train_direction_queued = JOYPAD_8WAY_DOWN;
+                case JOYPAD_8WAY_UP:
+                case JOYPAD_8WAY_DOWN:
+                    g.train_direction_queued = JOYPAD_8WAY_RIGHT;
+                    break;
+                case JOYPAD_8WAY_RIGHT:
+                case JOYPAD_8WAY_LEFT:
+                    g.train_direction_queued = JOYPAD_8WAY_DOWN;
+                    break;
+                default:
+                    break;
             }
             break;
         default:
             break;
+    }
+
+    // check if libdragon API changed (this might very paranoid)
+    assertf((JOYPAD_8WAY_DOWN - JOYPAD_8WAY_UP) == 4 && (JOYPAD_8WAY_LEFT - JOYPAD_8WAY_RIGHT) == 4, "Libdragon API changed - can't check for opposite directions like this anymore");
+    // prevent moving into the wagon immediately behind the train
+    if (g.items_collected > 0 && abs(g.train_direction_queued - g.train_direction) == 4)
+    {
+        g.train_direction_queued = g.train_direction;
     }
 }
 
