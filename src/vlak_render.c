@@ -17,7 +17,7 @@ static int level_transit_line_count = 0;
 
 void vlak_text_init()
 {
-    rdpq_font_t* font = __rdpq_font_load_builtin_1();
+    rdpq_font_t* font = rdpq_font_load_builtin(FONT_BUILTIN_DEBUG_MONO);
     rdpq_text_register_font(FONT_BUILTIN_DEBUG_MONO, font);
 
     rdpq_font_style(font, TEXT_GREEN, &(rdpq_fontstyle_t) { 
