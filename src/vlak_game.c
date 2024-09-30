@@ -6,6 +6,9 @@ vlak_game_t g = {0};
 
 void vlak_game_init()
 {
+    // check if libdragon API changed (this might very paranoid)
+    assertf((JOYPAD_8WAY_DOWN - JOYPAD_8WAY_UP) == 4 && (JOYPAD_8WAY_LEFT - JOYPAD_8WAY_RIGHT) == 4, "Libdragon API changed - can't check for opposite directions like this anymore");
+    
     g.title_screen_playing = true;
 
     g.train_direction_queued = JOYPAD_8WAY_RIGHT;
@@ -163,8 +166,6 @@ void vlak_process_input()
             break;
     }
 
-    // check if libdragon API changed (this might very paranoid)
-    assertf((JOYPAD_8WAY_DOWN - JOYPAD_8WAY_UP) == 4 && (JOYPAD_8WAY_LEFT - JOYPAD_8WAY_RIGHT) == 4, "Libdragon API changed - can't check for opposite directions like this anymore");
     // prevent moving into the wagon immediately behind the train
     if (g.items_collected > 0 && abs(g.train_direction_queued - g.train_direction) == 4)
     {
