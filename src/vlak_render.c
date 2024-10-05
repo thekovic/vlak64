@@ -235,6 +235,13 @@ void vlak_render_transition()
         rdpq_fill_rectangle(5 * TILE_SIZE, 6 * TILE_SIZE, 15 * TILE_SIZE, 7 * TILE_SIZE);
         rdpq_text_printf(&(rdpq_textparms_t) {.style_id = TEXT_GREEN}, FONT_BUILTIN_DEBUG_MONO, 5.75 * TILE_SIZE, 6.75 * TILE_SIZE,
             "Press ^03START ^01to continue");
+        if (g.current_level_id + 1 == LEVEL_MAX)
+        {
+            rdpq_set_mode_fill(RGBA32(0, 0, 0, 255));
+            rdpq_fill_rectangle(5 * TILE_SIZE, 5 * TILE_SIZE, 15 * TILE_SIZE, 6 * TILE_SIZE);
+            rdpq_text_printf(&(rdpq_textparms_t) {.style_id = TEXT_YELLOW}, FONT_BUILTIN_DEBUG_MONO, 5.25 * TILE_SIZE, 5.75 * TILE_SIZE,
+                "Congratulations^01! ^02You win^01!");
+        }
     }
 
     if (g.level_transit_anim == ANIM_REVERSE)

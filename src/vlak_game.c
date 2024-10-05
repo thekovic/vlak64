@@ -20,6 +20,18 @@ void vlak_game_init()
 
 void vlak_load_level()
 {
+    g.should_load_level = false;
+    if (g.current_level_id < 0)
+    {
+        g.current_level_id = 0;
+        return;
+    }
+    if (g.current_level_id >= LEVEL_MAX)
+    {
+        g.current_level_id = LEVEL_MAX - 1;
+        return;
+    }
+
     // load level data
     memcpy(&g.current_level, vlak_level_array[g.current_level_id], sizeof(vlak_level_t));
 
@@ -41,8 +53,6 @@ void vlak_load_level()
             g.items_to_collect++;
         }
     }
-
-    g.should_load_level = false;
 }
 
 void vlak_process_input()
@@ -64,6 +74,11 @@ void vlak_process_input()
         {
             g.level_transit_anim = ANIM_REVERSE;
             g.current_level_id++;
+            if (g.current_level_id == LEVEL_MAX)
+            {
+                g.current_level_id = 0;
+                g.title_screen_playing = true;
+            }
             g.should_load_level = true;
         }
     }
@@ -290,6 +305,7 @@ void vlak_collision_check()
     else if (tile_id > NIC && tile_id <= LET)
     {
         vlak_element_t wagon_type = tile_id + LOK;
+        // spawn wagon behind train
         if (g.items_collected == 0)
         {
             g.wagon_array[g.items_collected] = (vlak_wagon_t) {
@@ -298,6 +314,7 @@ void vlak_collision_check()
                 .type = wagon_type
             };
         }
+        // spawn wagon behind last wagon
         else
         {
             g.wagon_array[g.items_collected] = (vlak_wagon_t) {
