@@ -8,7 +8,8 @@
 
 typedef enum
 {
-    TEXT_GREEN = 1,
+    TEXT_WHITE,
+    TEXT_GREEN,
     TEXT_YELLOW,
     TEXT_RED
 } vlak_text_color_t;
@@ -51,16 +52,16 @@ void vlak_render_border()
     // render text bar
     if (g.train_explosion_anim == ANIM_FINISHED)
     {
-        rdpq_text_printf(&(rdpq_textparms_t) {.style_id = 1}, FONT_BUILTIN_DEBUG_MONO, 4.75 * TILE_SIZE, 13.75 * TILE_SIZE,
+        rdpq_text_printf(&(rdpq_textparms_t) {.style_id = TEXT_GREEN}, FONT_BUILTIN_DEBUG_MONO, 4.75 * TILE_SIZE, 13.75 * TILE_SIZE,
             "Press ^03START ^01to restart level");
     }
     else
     {
-        rdpq_text_printf(&(rdpq_textparms_t) {.style_id = 1}, FONT_BUILTIN_DEBUG_MONO, 1.25 * TILE_SIZE, 13.75 * TILE_SIZE,
+        rdpq_text_printf(&(rdpq_textparms_t) {.style_id = TEXT_GREEN}, FONT_BUILTIN_DEBUG_MONO, 1.25 * TILE_SIZE, 13.75 * TILE_SIZE,
             "SCORE: ^02%i0", g.game_score);
-        rdpq_text_printf(&(rdpq_textparms_t) {.style_id = 3}, FONT_BUILTIN_DEBUG_MONO, 6.25 * TILE_SIZE, 13.75 * TILE_SIZE,
+        rdpq_text_printf(&(rdpq_textparms_t) {.style_id = TEXT_RED}, FONT_BUILTIN_DEBUG_MONO, 6.25 * TILE_SIZE, 13.75 * TILE_SIZE,
             "GET: ^02%02i ^03HAVE: ^02%02i", g.items_to_collect, g.items_collected);
-        rdpq_text_printf(&(rdpq_textparms_t) {.style_id = 1}, FONT_BUILTIN_DEBUG_MONO, 13.25 * TILE_SIZE, 13.75 * TILE_SIZE,
+        rdpq_text_printf(&(rdpq_textparms_t) {.style_id = TEXT_GREEN}, FONT_BUILTIN_DEBUG_MONO, 13.25 * TILE_SIZE, 13.75 * TILE_SIZE,
             "LEVEL ^02%02i^01: ^02%s", g.current_level_id, g.current_level.name);
     }
 }
@@ -183,11 +184,11 @@ void vlak_render_level(vlak_level_t* level)
 
 void vlak_render_title_screen()
 {
-    rdpq_text_printf(&(rdpq_textparms_t) {.style_id = 0}, FONT_BUILTIN_DEBUG_MONO, 1.25 * TILE_SIZE, 10.75 * TILE_SIZE,
+    rdpq_text_printf(&(rdpq_textparms_t) {.style_id = TEXT_WHITE}, FONT_BUILTIN_DEBUG_MONO, 1.25 * TILE_SIZE, 10.75 * TILE_SIZE,
         "VLAK 64 by the_kovic    Made with Libdragon SDK");
-    rdpq_text_printf(&(rdpq_textparms_t) {.style_id = 0}, FONT_BUILTIN_DEBUG_MONO, 1.25 * TILE_SIZE, 11.75 * TILE_SIZE,
+    rdpq_text_printf(&(rdpq_textparms_t) {.style_id = TEXT_WHITE}, FONT_BUILTIN_DEBUG_MONO, 1.25 * TILE_SIZE, 11.75 * TILE_SIZE,
         "Based on free game by Miroslav Nemecek    ^02\u00A92024");
-    rdpq_text_printf(&(rdpq_textparms_t) {.style_id = 1}, FONT_BUILTIN_DEBUG_MONO, 6.5 * TILE_SIZE, 13.75 * TILE_SIZE,
+    rdpq_text_printf(&(rdpq_textparms_t) {.style_id = TEXT_GREEN}, FONT_BUILTIN_DEBUG_MONO, 6.5 * TILE_SIZE, 13.75 * TILE_SIZE,
         "Press ^03START ^01button");
 }
 
@@ -232,7 +233,7 @@ void vlak_render_transition()
     {
         rdpq_set_mode_fill(RGBA32(0, 0, 0, 255));
         rdpq_fill_rectangle(5 * TILE_SIZE, 6 * TILE_SIZE, 15 * TILE_SIZE, 7 * TILE_SIZE);
-        rdpq_text_printf(&(rdpq_textparms_t) {.style_id = 1}, FONT_BUILTIN_DEBUG_MONO, 5.75 * TILE_SIZE, 6.75 * TILE_SIZE,
+        rdpq_text_printf(&(rdpq_textparms_t) {.style_id = TEXT_GREEN}, FONT_BUILTIN_DEBUG_MONO, 5.75 * TILE_SIZE, 6.75 * TILE_SIZE,
             "Press ^03START ^01to continue");
     }
 
