@@ -12,4 +12,4 @@ Build the ROM by cloning this repository and running `make`.
 
 Run in ares emulator or on real hardware using a flashcart.
 
-![Image showing the game](vlak64.png)
+![Image showing the game](image.png)
