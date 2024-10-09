@@ -254,6 +254,24 @@ void vlak_render_transition()
     }
 }
 
+#if PROFILE
+#include <malloc.h>
+
+void profiler_draw()
+{
+    typedef struct mallinfo memory_info_t;
+    memory_info_t mem_info = mallinfo();
+    int width = display_get_width();
+    int height = display_get_height();
+    int ram_used = mem_info.uordblks - ((width * height * 2) - ((uint32_t) HEAP_START_ADDR) - 0x80000000 - 0x10000);
+
+    rdpq_text_printf(NULL, FONT_BUILTIN_DEBUG_MONO, 20, 26, "FPS %2.2f", display_get_fps());
+    rdpq_text_printf(NULL, FONT_BUILTIN_DEBUG_MONO, 196, 26, "RAM %iKB/%iKB", (ram_used / 1024), (get_memory_size() / 1024));
+}
+#else
+void profiler_draw() {}
+#endif
+
 void vlak_render()
 {
     rdpq_attach_clear(display_get(), NULL);
@@ -276,6 +294,8 @@ void vlak_render()
     {
         vlak_render_transition();
     }
+
+    profiler_draw();
 
     rdpq_detach_show();
 }
