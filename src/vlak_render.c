@@ -261,9 +261,13 @@ void profiler_draw()
 {
     typedef struct mallinfo memory_info_t;
     memory_info_t mem_info = mallinfo();
-    int width = display_get_width();
-    int height = display_get_height();
-    int ram_used = mem_info.uordblks - ((width * height * 2) - ((uint32_t) HEAP_START_ADDR) - 0x80000000 - 0x10000);
+    // This is the best calculation I could come up with.
+    // I think it's missing the size of stack-allocated data which I don't know
+    // how to get information about. From my testing, this means this calculation
+    // will report about 150 kB of "fake" free memory but this number could vary
+    // based on what you're doing in your game and how libdragon evolves in the future.
+    // At any rate, treat this number as a low-ball estimate of memory usage.
+    int ram_used = mem_info.uordblks + ((uint32_t) HEAP_START_ADDR) - 0x80000000 - 0x10000;
 
     rdpq_text_printf(NULL, FONT_BUILTIN_DEBUG_MONO, 20, 26, "FPS %2.2f", display_get_fps());
     rdpq_text_printf(NULL, FONT_BUILTIN_DEBUG_MONO, 196, 26, "RAM %iKB/%iKB", (ram_used / 1024), (get_memory_size() / 1024));
