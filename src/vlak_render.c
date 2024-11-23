@@ -1,6 +1,5 @@
 #include <libdragon.h>
 
-#include "vlak_render.h"
 #include "vlak_sprites.h"
 #include "vlak_game.h"
 
@@ -11,7 +10,8 @@ typedef enum
     TEXT_WHITE,
     TEXT_GREEN,
     TEXT_YELLOW,
-    TEXT_RED
+    TEXT_RED,
+    TEXT_WHITE_NO_OUTLINE
 } vlak_text_color_t;
 
 static int level_transit_line_count = 0;
@@ -21,6 +21,9 @@ void vlak_text_init()
     rdpq_font_t* font = rdpq_font_load_builtin(FONT_BUILTIN_DEBUG_MONO);
     rdpq_text_register_font(FONT_BUILTIN_DEBUG_MONO, font);
 
+    rdpq_font_style(font, TEXT_WHITE_NO_OUTLINE, &(rdpq_fontstyle_t) { 
+        .color = RGBA32(255, 255, 255, 255)
+    });
     rdpq_font_style(font, TEXT_GREEN, &(rdpq_fontstyle_t) { 
         .color = RGBA32(85, 255, 85, 255)
     });
@@ -218,7 +221,7 @@ static void vlak_render_transition()
                     g.title_screen_playing = false;
                     g.title_screen_leaving = false;
                     
-                    g.should_load_level = vlak_change_level(LEVEL_ID_START);
+                    g.should_load_level = vlak_set_level(LEVEL_ID_START);
                 }
             }
             else
@@ -253,6 +256,43 @@ static void vlak_render_transition()
     }
 }
 
+static void vlak_render_menu()
+{
+    // Render semi-transparent black rectangle to darken background behind menu
+    rdpq_set_mode_standard();
+    rdpq_mode_combiner(RDPQ_COMBINER_FLAT);
+    rdpq_mode_blender(RDPQ_BLENDER_MULTIPLY);
+    rdpq_set_prim_color(RGBA32(0,0,0,192));
+    rdpq_fill_rectangle(0,0, display_get_width(), display_get_height());
+
+    // Render menu box
+    rdpq_set_mode_standard();
+    sprite_t* zed_sprite = vlak_sprite_array[ZED]->anim_frames[vlak_sprite_array[ZED]->nframes - 1];
+    rdpq_sprite_upload(TILE0, zed_sprite, &(rdpq_texparms_t) {.s = {.repeats = REPEAT_INFINITE}, .t = {.repeats = REPEAT_INFINITE}});
+    rdpq_texture_rectangle(TILE0, 7 * TILE_SIZE, 3 * TILE_SIZE, 13 * TILE_SIZE, 11 * TILE_SIZE, 0, 0);
+    rdpq_set_mode_fill(RGBA32(0,0,0,255));
+    rdpq_fill_rectangle(8 * TILE_SIZE, 4 * TILE_SIZE, 12 * TILE_SIZE, 10 * TILE_SIZE);
+
+    // Render menu text
+    rdpq_set_mode_standard();
+    for (int i = 0; i < MENU_LEN; i++)
+    {
+        int text_color = (i == g.menu_index) ? TEXT_GREEN : TEXT_WHITE_NO_OUTLINE;
+        rdpq_text_printf(
+            &(rdpq_textparms_t) {.style_id = text_color, .align = ALIGN_CENTER, .valign = VALIGN_CENTER, .width = 4 * TILE_SIZE, .height = TILE_SIZE},
+            FONT_BUILTIN_DEBUG_MONO,
+            // x0 + 1 because there's a bug in libdragon's rdpq_text centering
+            8 * TILE_SIZE + 1, (4 + 2 * i) * TILE_SIZE,
+            "%s:", menu[i].name);
+        rdpq_text_printf(
+            &(rdpq_textparms_t) {.style_id = TEXT_WHITE, .align = ALIGN_CENTER, .valign = VALIGN_CENTER, .width = 4 * TILE_SIZE, .height = TILE_SIZE},
+            FONT_BUILTIN_DEBUG_MONO,
+            // x0 + 1 because there's a bug in libdragon's rdpq_text centering
+            8 * TILE_SIZE + 1, (4 + 2 * i + 1) * TILE_SIZE,
+            "^02< ^04%s ^02>", vlak_menu_get_option_name(i, *(menu[i].value)));
+    }
+}
+
 #if PROFILE
 #include <malloc.h>
 
@@ -279,8 +319,6 @@ void vlak_render()
 {
     rdpq_attach_clear(display_get(), NULL);
 
-    rdpq_set_mode_standard();
-
     if (!g.title_screen_playing)
     {
         vlak_render_border();
@@ -296,6 +334,11 @@ void vlak_render()
     if (g.level_transit_anim != ANIM_NOT_STARTED)
     {
         vlak_render_transition();
+    }
+
+    if (g.menu_open)
+    {
+        vlak_render_menu();
     }
 
     profiler_draw();

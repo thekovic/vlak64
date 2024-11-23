@@ -16,15 +16,53 @@ void vlak_game_init()
 
     g.should_load_level = true;
     g.current_level_id = LEVEL_ID_TITLE_SCREEN;
+
+    g.game_border = BORDER_NONE;
+    g.game_speed = SPEED_NORMAL;
 }
 
-bool vlak_change_level(int level_id)
+void vlak_set_game_speed()
 {
-    if (level_id == g.current_level_id)
+    int game_speed = 12;
+    switch (g.game_speed)
     {
-        return true;
+        case SPEED_SLOW:
+            game_speed = 10;
+            break;
+        case SPEED_NORMAL:
+            game_speed = 12;
+            break;
+        case SPEED_FAST:
+            game_speed = 15;
+            break;
     }
 
+    display_set_fps_limit(game_speed);
+}
+
+void vlak_set_display()
+{
+    static bool ran_once = false;
+
+    if (ran_once)
+    {
+        rspq_wait();
+        display_close();
+    }
+
+    ran_once = true;
+
+    float margin = 0.025 * g.game_border;
+    display_init(
+        (resolution_t) {.width = 320, .height = 240, .overscan_margin = margin},
+        DEPTH_32_BPP, 3, GAMMA_NONE,
+        (g.game_border) ? FILTERS_RESAMPLE : FILTERS_DISABLED);
+
+    vlak_set_game_speed();
+}
+
+bool vlak_set_level(int level_id)
+{
     if ((level_id < 0) || (level_id >= LEVEL_MAX))
     {
         return false;
@@ -64,132 +102,6 @@ void vlak_load_level()
         {
             g.items_to_collect++;
         }
-    }
-}
-
-void vlak_process_input()
-{
-    joypad_poll();
-    joypad_buttons_t pressed = joypad_get_buttons_pressed(JOYPAD_PORT_1);
-    if (pressed.start)
-    {
-        if (g.title_screen_playing)
-        {
-            g.title_screen_leaving = true;
-            g.level_transit_anim = ANIM_GOING;
-        }
-        if (g.train_explosion_anim == ANIM_FINISHED)
-        {
-            g.should_load_level = vlak_change_level(g.current_level_id);
-        }
-        if (g.level_transit_anim == ANIM_FINISHED)
-        {
-            g.level_transit_anim = ANIM_REVERSE;
-            int next_level_id = (g.current_level_id + 1 == LEVEL_MAX) ? LEVEL_ID_TITLE_SCREEN : g.current_level_id + 1;
-            g.should_load_level = vlak_change_level(next_level_id);
-        }
-    }
-    // early return if we're on title screen
-    if (g.title_screen_playing || g.level_transit_anim != ANIM_NOT_STARTED)
-    {
-        return;
-    }
-    // level skip cheat
-    if (pressed.a)
-    {
-        g.should_load_level = vlak_change_level(g.current_level_id + 1);
-    }
-    if (pressed.b)
-    {
-        g.should_load_level = vlak_change_level(g.current_level_id - 1);
-    }
-    
-
-    joypad_8way_t direction = joypad_get_direction(JOYPAD_PORT_1, JOYPAD_2D_ANY);
-    // start moving train if stopped and not exploded
-    if (!g.train_moving && g.train_explosion_anim == ANIM_NOT_STARTED && direction != JOYPAD_8WAY_NONE)
-    {
-        g.train_moving = true;
-    }
-
-    switch (direction)
-    {
-        // simple ordinal movement
-        case JOYPAD_8WAY_UP:
-        case JOYPAD_8WAY_RIGHT:
-        case JOYPAD_8WAY_DOWN:
-        case JOYPAD_8WAY_LEFT:
-            g.train_direction_queued = direction;
-            break;
-        // something to handle diagonal inputs (still recommend to not use them)
-        case JOYPAD_8WAY_UP_LEFT:
-            switch (g.train_direction)
-            {
-                case JOYPAD_8WAY_UP:
-                case JOYPAD_8WAY_DOWN:
-                    g.train_direction_queued = JOYPAD_8WAY_LEFT;
-                    break;
-                case JOYPAD_8WAY_RIGHT:
-                case JOYPAD_8WAY_LEFT:
-                    g.train_direction_queued = JOYPAD_8WAY_UP;
-                    break;
-                default:
-                    break;
-            }
-            break;
-        case JOYPAD_8WAY_UP_RIGHT:
-            switch (g.train_direction)
-            {
-                case JOYPAD_8WAY_UP:
-                case JOYPAD_8WAY_DOWN:
-                    g.train_direction_queued = JOYPAD_8WAY_RIGHT;
-                    break;
-                case JOYPAD_8WAY_RIGHT:
-                case JOYPAD_8WAY_LEFT:
-                    g.train_direction_queued = JOYPAD_8WAY_UP;
-                    break;
-                default:
-                    break;
-            }
-            break;
-        case JOYPAD_8WAY_DOWN_LEFT:
-            switch (g.train_direction)
-            {
-                case JOYPAD_8WAY_UP:
-                case JOYPAD_8WAY_DOWN:
-                    g.train_direction_queued = JOYPAD_8WAY_LEFT;
-                    break;
-                case JOYPAD_8WAY_RIGHT:
-                case JOYPAD_8WAY_LEFT:
-                    g.train_direction_queued = JOYPAD_8WAY_DOWN;
-                    break;
-                default:
-                    break;
-            }
-            break;
-        case JOYPAD_8WAY_DOWN_RIGHT:
-            switch (g.train_direction)
-            {
-                case JOYPAD_8WAY_UP:
-                case JOYPAD_8WAY_DOWN:
-                    g.train_direction_queued = JOYPAD_8WAY_RIGHT;
-                    break;
-                case JOYPAD_8WAY_RIGHT:
-                case JOYPAD_8WAY_LEFT:
-                    g.train_direction_queued = JOYPAD_8WAY_DOWN;
-                    break;
-                default:
-                    break;
-            }
-            break;
-        default:
-            break;
-    }
-
-    // prevent moving into the wagon immediately behind the train
-    if (g.items_collected > 0 && abs(g.train_direction_queued - g.train_direction) == 4)
-    {
-        g.train_direction_queued = g.train_direction;
     }
 }
 

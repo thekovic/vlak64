@@ -3,7 +3,6 @@
 #include "vlak_game.h"
 #include "vlak_sprites.h"
 #include "vlak_sfx.h"
-#include "vlak_render.h"
 
 int main()
 {   
@@ -11,12 +10,10 @@ int main()
     dfs_init(DFS_DEFAULT_LOCATION);
     rdpq_init();
 
+    debug_init_isviewer();
+
     audio_init(44100, 4);
     mixer_init(8);
-
-    display_init((resolution_t) {.width = 320, .height = 240}, DEPTH_32_BPP, 3, GAMMA_NONE, FILTERS_DISABLED);
-
-    display_set_fps_limit(12);
 
     vlak_sprite_init();
 
@@ -26,6 +23,8 @@ int main()
 
     vlak_game_init();
 
+    vlak_set_display();
+
     while (1)
     {
         if (g.should_load_level)
@@ -33,16 +32,16 @@ int main()
             vlak_load_level();
         }
 
-        mixer_try_play();
-
         vlak_process_input();
+
+        mixer_try_play();
 
         if (g.title_screen_playing && (g.anim_counter % 5 == 0))
         {
             vlak_title_screen_tick();
         }
 
-        if (g.train_moving && (g.anim_counter % 5 == 0))
+        if (!g.menu_open && g.train_moving && (g.anim_counter % 5 == 0))
         {
             vlak_collision_check();
         }
