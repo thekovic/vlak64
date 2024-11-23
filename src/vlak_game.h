@@ -56,6 +56,8 @@ extern vlak_game_t g;
 
 void vlak_game_init();
 
+bool vlak_change_level(int level_id);
+
 void vlak_load_level();
 
 void vlak_process_input();

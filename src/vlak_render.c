@@ -218,8 +218,7 @@ void vlak_render_transition()
                     g.title_screen_playing = false;
                     g.title_screen_leaving = false;
                     
-                    g.current_level_id++;
-                    g.should_load_level = true;
+                    g.should_load_level = vlak_change_level(LEVEL_ID_START);
                 }
             }
             else

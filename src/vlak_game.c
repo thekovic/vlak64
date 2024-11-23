@@ -15,22 +15,34 @@ void vlak_game_init()
     g.train_direction = JOYPAD_8WAY_RIGHT;
 
     g.should_load_level = true;
-    g.current_level_id = 0;
+    g.current_level_id = LEVEL_ID_TITLE_SCREEN;
+}
+
+bool vlak_change_level(int level_id)
+{
+    if (level_id == g.current_level_id)
+    {
+        return true;
+    }
+
+    if ((level_id < 0) || (level_id >= LEVEL_MAX))
+    {
+        return false;
+    }
+
+    if (level_id == LEVEL_ID_TITLE_SCREEN)
+    {
+        g.title_screen_playing = true;
+    }
+
+    g.current_level_id = level_id;
+    
+    return true;
 }
 
 void vlak_load_level()
 {
     g.should_load_level = false;
-    if (g.current_level_id < 0)
-    {
-        g.current_level_id = 0;
-        return;
-    }
-    if (g.current_level_id >= LEVEL_MAX)
-    {
-        g.current_level_id = LEVEL_MAX - 1;
-        return;
-    }
 
     // load level data
     memcpy(&g.current_level, vlak_level_array[g.current_level_id], sizeof(vlak_level_t));
@@ -68,18 +80,13 @@ void vlak_process_input()
         }
         if (g.train_explosion_anim == ANIM_FINISHED)
         {
-            g.should_load_level = true;
+            g.should_load_level = vlak_change_level(g.current_level_id);
         }
         if (g.level_transit_anim == ANIM_FINISHED)
         {
             g.level_transit_anim = ANIM_REVERSE;
-            g.current_level_id++;
-            if (g.current_level_id == LEVEL_MAX)
-            {
-                g.current_level_id = 0;
-                g.title_screen_playing = true;
-            }
-            g.should_load_level = true;
+            int next_level_id = (g.current_level_id + 1 == LEVEL_MAX) ? LEVEL_ID_TITLE_SCREEN : g.current_level_id + 1;
+            g.should_load_level = vlak_change_level(next_level_id);
         }
     }
     // early return if we're on title screen
@@ -90,13 +97,11 @@ void vlak_process_input()
     // level skip cheat
     if (pressed.a)
     {
-        g.current_level_id++;
-        g.should_load_level = true;
+        g.should_load_level = vlak_change_level(g.current_level_id + 1);
     }
     if (pressed.b)
     {
-        g.current_level_id--;
-        g.should_load_level = true;
+        g.should_load_level = vlak_change_level(g.current_level_id - 1);
     }
     
 

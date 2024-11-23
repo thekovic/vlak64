@@ -18,6 +18,8 @@ typedef struct level_s
     uint8_t content[LEVEL_LEN];
 } vlak_level_t;
 
+#define LEVEL_ID_TITLE_SCREEN (0)
+#define LEVEL_ID_START (1)
 #define LEVEL_MAX (52)
 
 extern vlak_level_t* vlak_level_array[LEVEL_MAX];
