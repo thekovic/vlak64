@@ -32,7 +32,7 @@ void vlak_text_init()
     });
 }
 
-void vlak_render_border()
+static void vlak_render_border()
 {
     rdpq_set_mode_standard();
 
@@ -66,7 +66,7 @@ void vlak_render_border()
     }
 }
 
-void vlak_render_level(vlak_level_t* level)
+static void vlak_render_level(vlak_level_t* level)
 {
     rdpq_set_mode_standard();
 
@@ -182,7 +182,7 @@ void vlak_render_level(vlak_level_t* level)
     }
 }
 
-void vlak_render_title_screen()
+static void vlak_render_title_screen()
 {
     rdpq_text_printf(&(rdpq_textparms_t) {.style_id = TEXT_WHITE}, FONT_BUILTIN_DEBUG_MONO, 1.25 * TILE_SIZE, 10.75 * TILE_SIZE,
         "VLAK 64 by the_kovic    Made with Libdragon SDK");
@@ -192,7 +192,7 @@ void vlak_render_title_screen()
         "Press ^03START ^01button");
 }
 
-void vlak_render_transition()
+static void vlak_render_transition()
 {
     rdpq_set_mode_standard();
 

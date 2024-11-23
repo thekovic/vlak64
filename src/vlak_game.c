@@ -193,7 +193,7 @@ void vlak_process_input()
     }
 }
 
-void vlak_move(int train_pos, int next_pos, vlak_element_t append_type)
+static void vlak_move(int train_pos, int next_pos, vlak_element_t append_type)
 {
     // only train
     if (g.items_collected == 0)

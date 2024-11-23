@@ -64,8 +64,6 @@ void vlak_process_input();
 
 void vlak_title_screen_tick();
 
-void vlak_move(int train_pos, int next_pos, vlak_element_t append_type);
-
 void vlak_collision_check();
 
 #endif
