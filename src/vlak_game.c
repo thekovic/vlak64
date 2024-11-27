@@ -44,19 +44,22 @@ void vlak_set_display()
 {
     static bool ran_once = false;
 
-    if (ran_once)
+    if (!ran_once)
     {
-        rspq_wait();
-        display_close();
+        ran_once = true;
+        goto create_display;
     }
 
-    ran_once = true;
+    rspq_wait();
+    display_close();
 
+create_display:
     float margin = 0.025 * g.game_border;
     display_init(
         (resolution_t) {.width = 320, .height = 240, .overscan_margin = margin},
         DEPTH_32_BPP, 3, GAMMA_NONE,
-        (g.game_border) ? FILTERS_RESAMPLE : FILTERS_DISABLED);
+        (g.game_border) ? FILTERS_RESAMPLE : FILTERS_DISABLED
+    );
 
     vlak_set_game_speed();
 }
