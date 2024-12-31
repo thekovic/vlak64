@@ -10,10 +10,10 @@ int main()
     dfs_init(DFS_DEFAULT_LOCATION);
     rdpq_init();
 
-    debug_init_isviewer();
+    //debug_init_isviewer();
 
     audio_init(44100, 4);
-    mixer_init(8);
+    mixer_init(SFX_CHANNEL_COUNT + MUSIC_CHANNEL_COUNT);
 
     vlak_sprite_init();
 
@@ -32,6 +32,8 @@ int main()
             vlak_load_level();
         }
 
+        mixer_try_play();
+
         vlak_process_input();
 
         mixer_try_play();
@@ -45,6 +47,8 @@ int main()
         {
             vlak_collision_check();
         }
+
+        mixer_try_play();
 
         vlak_render();
 

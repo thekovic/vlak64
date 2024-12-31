@@ -13,9 +13,11 @@ all: vlak64.z64
 
 ASSETS_SPRITES = $(wildcard assets/*.png)
 ASSETS_SFX = $(wildcard assets/*.wav)
+ASSETS_MUSIC = $(wildcard assets/*.xm)
 
 FS_SPRITES = $(addprefix filesystem/, $(notdir $(ASSETS_SPRITES:%.png=%.sprite)))
 FS_SFX = $(addprefix filesystem/, $(notdir $(ASSETS_SFX:%.wav=%.wav64)))
+FS_MUSIC = $(addprefix filesystem/, $(notdir $(ASSETS_MUSIC:%.xm=%.xm64)))
 
 filesystem/%.sprite: assets/%.png
 	@mkdir -p $(dir $@)
@@ -24,10 +26,15 @@ filesystem/%.sprite: assets/%.png
 
 filesystem/%.wav64: assets/%.wav
 	@mkdir -p $(dir $@)
-	@echo "    [AUDIOCONV64] $< -> $@"
+	@echo "    [AUDIOCONV64 (SFX)] $< -> $@"
 	@$(N64_AUDIOCONV) --wav-compress 0 -o "$(dir $@)" "$<"
 
-$(BUILD_DIR)/vlak64.dfs: $(FS_SPRITES) $(FS_SFX)
+filesystem/%.xm64: assets/%.xm
+	@mkdir -p $(dir $@)
+	@echo "    [AUDIOCONV64 (MUSIC)] $< -> $@"
+	@$(N64_AUDIOCONV) -o "$(dir $@)" "$<"
+
+$(BUILD_DIR)/vlak64.dfs: $(FS_SPRITES) $(FS_SFX) $(FS_MUSIC)
 
 SOURCE_FILES := $(shell find $(SOURCE_DIR)/ -type f -name '*.c' | sort)
 OBJECT_FILES := $(SOURCE_FILES:$(SOURCE_DIR)/%.c=$(BUILD_DIR)/%.o)
