@@ -269,9 +269,9 @@ static void vlak_render_menu()
     rdpq_set_mode_standard();
     sprite_t* zed_sprite = vlak_sprite_array[ZED]->anim_frames[vlak_sprite_array[ZED]->nframes - 1];
     rdpq_sprite_upload(TILE0, zed_sprite, &(rdpq_texparms_t) {.s = {.repeats = REPEAT_INFINITE}, .t = {.repeats = REPEAT_INFINITE}});
-    rdpq_texture_rectangle(TILE0, 7 * TILE_SIZE, 3 * TILE_SIZE, 13 * TILE_SIZE, 11 * TILE_SIZE, 0, 0);
+    rdpq_texture_rectangle(TILE0, 6 * TILE_SIZE, 3 * TILE_SIZE, 14 * TILE_SIZE, 11 * TILE_SIZE, 0, 0);
     rdpq_set_mode_fill(RGBA32(0,0,0,255));
-    rdpq_fill_rectangle(8 * TILE_SIZE, 4 * TILE_SIZE, 12 * TILE_SIZE, 10 * TILE_SIZE);
+    rdpq_fill_rectangle(7 * TILE_SIZE, 4 * TILE_SIZE, 13 * TILE_SIZE, 10 * TILE_SIZE);
 
     // Render menu text
     rdpq_set_mode_standard();
@@ -285,10 +285,10 @@ static void vlak_render_menu()
             8 * TILE_SIZE + 1, (4 + 2 * i) * TILE_SIZE,
             "%s:", menu[i].name);
         rdpq_text_printf(
-            &(rdpq_textparms_t) {.style_id = TEXT_WHITE, .align = ALIGN_CENTER, .valign = VALIGN_CENTER, .width = 4 * TILE_SIZE, .height = TILE_SIZE},
+            &(rdpq_textparms_t) {.style_id = TEXT_WHITE, .align = ALIGN_CENTER, .valign = VALIGN_CENTER, .width = 6 * TILE_SIZE, .height = TILE_SIZE},
             FONT_BUILTIN_DEBUG_MONO,
             // x0 + 1 because there's a bug in libdragon's rdpq_text centering
-            8 * TILE_SIZE + 1, (4 + 2 * i + 1) * TILE_SIZE,
+            7 * TILE_SIZE + 1, (4 + 2 * i + 1) * TILE_SIZE,
             "^02< ^04%s ^02>", vlak_menu_get_option_name(i, *(menu[i].value)));
     }
 }
