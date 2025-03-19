@@ -34,7 +34,7 @@ vlak_menu_item_t menu[MENU_LEN] = {
 const char* vlak_menu_get_option_name(int menu_index, int option_index)
 {
     const char* menu_border_option_names[BORDER_NUM] = {"None", "Mild", "Safe"};
-    const char* menu_speed_option_names[SPEED_NUM] = {"Slow", "Normal", "Fast"};
+    const char* menu_speed_option_names[SPEED_NUM] = {"Slow", "Normal", "Fast", "Very Fast", "Nightmare!", "Ludicrous"};
 
     if (menu_index == MENU_BORDER)
     {

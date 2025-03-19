@@ -35,6 +35,15 @@ void vlak_set_game_speed()
         case SPEED_FAST:
             game_speed = 15;
             break;
+        case SPEED_VERY_FAST:
+            game_speed = 18;
+            break;
+        case SPEED_NIGHTMARE:
+            game_speed = 20;
+            break;
+        case SPEED_LUDICROUS:
+            game_speed = 30;
+            break;
     }
 
     display_set_fps_limit(game_speed);

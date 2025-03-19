@@ -38,9 +38,12 @@ typedef enum
 {
     SPEED_SLOW,
     SPEED_NORMAL,
-    SPEED_FAST
+    SPEED_FAST,
+    SPEED_VERY_FAST,
+    SPEED_NIGHTMARE,
+    SPEED_LUDICROUS
 } vlak_game_speed_t;
-#define SPEED_NUM (3)
+#define SPEED_NUM (6)
 
 typedef enum
 {
