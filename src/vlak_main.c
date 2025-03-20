@@ -55,5 +55,7 @@ int main()
         mixer_try_play();
 
         g.anim_counter++;
+
+        vlak_process_input();
     }
 }
