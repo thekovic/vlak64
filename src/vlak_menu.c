@@ -26,8 +26,8 @@ static void vlak_menu_change_level(int choice)
 }
 
 vlak_menu_item_t menu[MENU_LEN] = {
-    {.name = "CRT Border", .routine = vlak_menu_change_border, (int*) &g.game_border},
     {.name = "Game Speed", .routine = vlak_menu_change_game_speed, (int*) &g.game_speed},
+    {.name = "CRT Border", .routine = vlak_menu_change_border, (int*) &g.game_border},
     {.name = "Level", .routine = vlak_menu_change_level, &g.current_level_id}
 };
 

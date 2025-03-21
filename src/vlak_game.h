@@ -8,8 +8,8 @@
 
 typedef enum
 {
-    MENU_BORDER,
     MENU_SPEED,
+    MENU_BORDER,
     MENU_LEVEL
 } vlak_menu_option_t;
 #define MENU_LEN (3)
