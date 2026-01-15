@@ -5,7 +5,7 @@ include $(N64_INST)/include/n64.mk
 
 # A for NTSC, P for PAL
 N64_ROM_REGION="A"
-N64_ROM_TITLE = "Vlak 64"
+N64_ROM_TITLE = "Vlak64 Zen C Edition"
 
 src = vlak_main.c
 
@@ -13,11 +13,9 @@ all: vlak64.z64
 
 ASSETS_SPRITES = $(wildcard assets/*.png)
 ASSETS_SFX = $(wildcard assets/*.wav)
-ASSETS_MUSIC = $(wildcard assets/*.xm)
 
 FS_SPRITES = $(addprefix filesystem/, $(notdir $(ASSETS_SPRITES:%.png=%.sprite)))
 FS_SFX = $(addprefix filesystem/, $(notdir $(ASSETS_SFX:%.wav=%.wav64)))
-FS_MUSIC = $(addprefix filesystem/, $(notdir $(ASSETS_MUSIC:%.xm=%.xm64)))
 
 filesystem/%.sprite: assets/%.png
 	@mkdir -p $(dir $@)
@@ -29,22 +27,26 @@ filesystem/%.wav64: assets/%.wav
 	@echo "    [AUDIOCONV64 (SFX)] $< -> $@"
 	@$(N64_AUDIOCONV) --wav-compress 0 -o "$(dir $@)" "$<"
 
-filesystem/%.xm64: assets/%.xm
-	@mkdir -p $(dir $@)
-	@echo "    [AUDIOCONV64 (MUSIC)] $< -> $@"
-	@$(N64_AUDIOCONV) -o "$(dir $@)" "$<"
+$(BUILD_DIR)/vlak64.dfs: $(FS_SPRITES) $(FS_SFX)
 
-$(BUILD_DIR)/vlak64.dfs: $(FS_SPRITES) $(FS_SFX) $(FS_MUSIC)
+C_FILES := $(shell find $(SOURCE_DIR)/ -type f -name '*.c' | sort)
+ZC_FILES := $(shell find $(SOURCE_DIR)/ -type f -name '*.zc' | sort)
+ZC_TO_C_FILES := $(ZC_FILES:$(SOURCE_DIR)/%.zc=$(SOURCE_DIR)/%.c)
+OBJECT_FILES := $(C_FILES:$(SOURCE_DIR)/%.c=$(BUILD_DIR)/%.o) \
+				$(ZC_FILES:$(SOURCE_DIR)/%.zc=$(BUILD_DIR)/%.o)
 
-SOURCE_FILES := $(shell find $(SOURCE_DIR)/ -type f -name '*.c' | sort)
-OBJECT_FILES := $(SOURCE_FILES:$(SOURCE_DIR)/%.c=$(BUILD_DIR)/%.o)
+$(SOURCE_DIR)/%.c: $(SOURCE_DIR)/%.zc
+	zc transpile --cc mips64-elf-gcc -o $@ $<
 
 $(BUILD_DIR)/vlak64.elf: $(OBJECT_FILES)
 
 vlak64.z64: $(BUILD_DIR)/vlak64.dfs
 
 clean:
-	rm -rf $(BUILD_DIR) filesystem/ vlak64.z64
+	rm -rf $(BUILD_DIR) vlak64.z64 $(ZC_TO_C_FILES)
+
+clean_fs:
+	rm -rf filesystem/
 
 -include $(wildcard $(BUILD_DIR)/*.d)
 

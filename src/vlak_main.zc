@@ -1,0 +1,49 @@
+import "libdragon.h" as n64;
+
+include "vlak_game.h"
+include "vlak_sprites.h"
+include "vlak_sfx.h"
+
+fn main()
+{
+    n64::joypad_init();
+    n64::dfs_init(DFS_DEFAULT_LOCATION);
+    n64::rdpq_init();
+
+    n64::audio_init(44100, 4);
+    n64::mixer_init(SFX_CHANNEL_COUNT + MUSIC_CHANNEL_COUNT);
+
+    vlak_sprite_init();
+    vlak_sfx_init();
+    vlak_text_init();
+    vlak_game_init();
+    vlak_set_display();
+
+    loop
+    {
+        if g.should_load_level
+        {
+            vlak_load_level();
+        }
+
+        n64::mixer_try_play();
+
+        vlak_process_input();
+
+        if g.title_screen_playing && (g.anim_counter % 5 == 0)
+        {
+            vlak_title_screen_tick();
+        }
+
+        if !g.menu_open && g.train_moving && (g.anim_counter % 5 == 0)
+        {
+            vlak_collision_check();
+        }
+
+        n64::mixer_try_play();
+
+        vlak_render();
+
+        g.anim_counter++;
+    }
+}
