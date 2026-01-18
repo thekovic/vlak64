@@ -44,7 +44,10 @@ $(BUILD_DIR)/vlak64.elf: $(OBJECT_FILES)
 vlak64.z64: $(BUILD_DIR)/vlak64.dfs
 
 clean:
-	rm -rf $(BUILD_DIR) filesystem/ vlak64.z64
+	rm -rf $(BUILD_DIR) vlak64.z64
+
+cleanfs:
+	rm -rf filesystem/
 
 -include $(wildcard $(BUILD_DIR)/*.d)
 
