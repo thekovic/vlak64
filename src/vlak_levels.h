@@ -27,6 +27,6 @@ extern vlak_level_t* vlak_level_array[LEVEL_MAX];
 int vlak_level_get_element_pos(vlak_level_t* level, vlak_element_t element);
 #define vlak_level_pos_to_x(pos) ((pos) % LEVEL_WIDTH)
 #define vlak_level_pos_to_y(pos) ((pos) / LEVEL_WIDTH)
-int vlak_level_xy_to_pos(int x, int y);
+#define vlak_level_xy_to_pos(x, y) (LEVEL_WIDTH * (y) + (x))
 
 #endif

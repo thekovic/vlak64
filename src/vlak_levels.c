@@ -16,11 +16,6 @@ int vlak_level_get_element_pos(vlak_level_t* level, vlak_element_t element)
     return -1;
 }
 
-int vlak_level_xy_to_pos(int x, int y)
-{
-    return LEVEL_WIDTH * y + x;
-}
-
 static vlak_level_t LEVEL_0_DEMO = {
     .name = "DEMO",
     .content = {

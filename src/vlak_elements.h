@@ -4,6 +4,7 @@
 typedef enum
 {
     NIC = 0,    // NIC (EMPTY TILE)
+    
     KRY = 1,    // KRYSTAL (CRYSTAL)
     KOR = 2,    // KORUNA (CROWN)
     STO = 3,    // STROM (TREE)
@@ -22,13 +23,14 @@ typedef enum
     VIN = 16,   // VINO (WINE)
     PEN = 17,   // PENIZE (MONEY)
     LET = 18,   // LETADLO (AIRPLANE)
+
     VRA,        // VRATA (DOOR)
     ZED,        // ZED (WALL)
-    LOK_BOOM,    // VLAK VYBUCH (TRAIN EXPLOSION)
+    LOK_BOOM,   // VLAK VYBUCH (TRAIN EXPLOSION)
     LOK_DED,    // VLAK TROSKA (TRAIN RUIN)
     LOK,        // VLAK (TRAIN)
-    // VAGONY (WAGONS)
 
+    // VAGONY (WAGONS)
     VAG_KRY,
     VAG_KOR,
     VAG_STO,
@@ -49,5 +51,8 @@ typedef enum
     VAG_LET,
     NUM_LEVEL_ELEMENTS
 } vlak_element_t;
+
+#define ITEM_END (LET + 1)
+#define VAG_CONST (VAG_KRY - KRY)
 
 #endif
