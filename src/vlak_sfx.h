@@ -12,13 +12,6 @@ extern wav64_t vlak_sfx_collect;
 extern wav64_t vlak_sfx_win;
 extern wav64_t vlak_sfx_boom;
 
-// Number of channels for the music. For XM music, this is equal to the number
-// of XM channels in the track (aka the number of instruments) which is a different
-// constant for every song.
-#define MUSIC_CHANNEL_COUNT (16)
-
-extern xm64player_t vlak_sfx_bg_music;
-
 void vlak_sfx_init();
 
 #endif

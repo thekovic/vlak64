@@ -11,7 +11,7 @@ fn main()
     n64::rdpq_init();
 
     n64::audio_init(44100, 4);
-    n64::mixer_init(SFX_CHANNEL_COUNT + MUSIC_CHANNEL_COUNT);
+    n64::mixer_init(SFX_CHANNEL_COUNT);
 
     vlak_sprite_init();
     vlak_sfx_init();
